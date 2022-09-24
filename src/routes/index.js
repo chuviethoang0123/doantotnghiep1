@@ -1,13 +1,24 @@
 import {createRouter, createWebHashHistory} from 'vue-router';
-import test from "../../src/App.vue";
-
+import HomeLayout from "../pages/home/layouts/HomeLayout.vue"
+import Home from "../pages/home/HomePage/Home.vue";
 const routes = [
     {
-        path: '/test',
-        component: test,
+        path: '/',
+        component: HomeLayout,
         meta: {
             title: "Trang chủ"
         },
+        children: [
+            {
+                title: 'Home',
+                path: '/',
+                name: 'Home',
+                component: Home,
+                meta: {
+                    title: 'Trang chủ',
+                }
+            }
+        ]
     },
 ]
 const router = createRouter({

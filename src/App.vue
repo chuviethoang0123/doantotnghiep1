@@ -1,31 +1,30 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+    <router-view></router-view>
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
+<script>
+export default {};
+// This starter template is using Vue 3 <script setup> SFCs
+// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
+</script>
+<style>
+body {
+    margin: 0;
+    font-family: "Sarabun", sans-serif !important;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.cursor-pointer {
+    cursor: pointer;
+    user-select: none;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+div::-webkit-scrollbar-track {
+    background: rgba(213, 213, 213, 0.3);
+    opacity: 0.6;
+}
+div::-webkit-scrollbar-thumb {
+    background: rgba(164, 164, 164, 0.5);
+    opacity: 0.6;
 }
 </style>
