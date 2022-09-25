@@ -33,7 +33,7 @@ export default {
 
         .webthucpham-main-content {
             flex: auto;
-            min-width: 1200px;
+            // min-width: 1200px;
             .webthucpham-header {
                 position: relative;
                 z-index: 2;
@@ -44,13 +44,15 @@ export default {
                 overflow: hidden auto;
                 background: #ffffff;
                 padding-bottom: 100px;
+                margin: 0 auto;
+                max-width: 1200px;
             }
 
             .webthucpham-footer {
                 flex-shrink: 0;
-                // height: 60px;
                 width: 100%;
-                background: #FFFFFF;
+                background: #4B1F12;
+                color: #ffffff;
             }
         }
     }

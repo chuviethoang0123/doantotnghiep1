@@ -1,7 +1,5 @@
 <template>
-    <div>
-        Home
-    </div>
+    <div>abc</div>
 </template>
 <script lang="ts">
 export default {

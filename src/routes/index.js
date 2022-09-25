@@ -1,6 +1,10 @@
 import {createRouter, createWebHashHistory} from 'vue-router';
-import HomeLayout from "../pages/home/layouts/HomeLayout.vue"
+import HomeLayout from "../pages/home/layouts/HomeLayout.vue";
+import AdminLayout from "../pages/admin/layouts/AdminLayout.vue";
+import DashBoard from "../pages/admin/DashBoard/DashBoard.vue";
 import Home from "../pages/home/HomePage/Home.vue";
+
+
 const routes = [
     {
         path: '/',
@@ -16,6 +20,31 @@ const routes = [
                 component: Home,
                 meta: {
                     title: 'Trang chủ',
+                }
+            }
+        ]
+    },
+
+
+
+
+
+
+    //admin
+    {
+        path: '/admin',
+        component: AdminLayout,
+        meta: {
+            title: "Admin"
+        },
+        children: [
+            {
+                title: 'Admin',
+                path: '/',
+                name: 'Admin',
+                component: DashBoard,
+                meta: {
+                    title: 'DashBoard',
                 }
             }
         ]
