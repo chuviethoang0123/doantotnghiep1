@@ -14,11 +14,15 @@
     "client": "npm start --prefix client"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.0.1",
+    "@element-plus/icons-vue": "^2.0.9",
     "@websanova/vue-auth": "^4.1.11",
+    "ant-design-vue": "^2.2.8",
     "apexcharts": "^3.33.0",
     "axios": "^0.26.0",
     "click-outside-vue3": "^4.0.1",
     "dotenv": "^16.0.0",
+    "element-plus": "^2.2.17",
     "express": "^4.17.3",
     "jspdf": "^2.5.1",
     "lodash": "^4.17.21",
@@ -28,8 +32,7 @@
     "vue-router": "^4.0.12",
     "vue3-apexcharts": "^1.4.1",
     "vue3-carousel": "^0.1.40",
-    "vuex": "^4.0.2",
-    "vuetify": "^3.0.0-beta.11"
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@element-plus/icons": "^0.0.11",
