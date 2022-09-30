@@ -9,6 +9,11 @@ export default ({mode}) => {
       { path: './.env' }
   );
   return defineConfig({
+    resolve:{
+      alias:{
+        '@' : resolve(__dirname, './src')
+      },
+    },
     plugins: [vue()],
     define: {
       'process.env': {

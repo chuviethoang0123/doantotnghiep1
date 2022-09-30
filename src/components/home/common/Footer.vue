@@ -59,13 +59,10 @@
     </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
+import { Search } from '@element-plus/icons-vue'
 const search = ref('')
-export default {
-    name: "Footer",
-
-}
 </script>
 
 <style lang="scss">
