@@ -1,9 +1,9 @@
 <template>
-    <div class="header-webview" v-if="checkScreen > 850">
+    <div class="header-webview" v-if="checkScreen > 768">
         <div class="header-top">
             <div class="content">
                 <el-row :gutter="20">
-                    <el-col :span="9"><div class="grid-content ep-bg-purple" />
+                    <el-col :span="11"><div class="grid-content ep-bg-purple" />
                         <div>
                             <el-icon><LocationFilled /></el-icon>
                             Location | 
@@ -12,7 +12,26 @@
                             <el-icon><PhoneFilled /></el-icon> 
                             0386132297</div>
                     </el-col>
-                    <el-col :span="6" :offset="9"><div class="grid-content ep-bg-purple"/>Đăng nhập/Đăng ký</el-col>
+                    <el-col :span="6" :offset="7">
+                        <div class="header-top-right" v-if="!user"><a @click="login">Đăng nhập</a>/<a @click="register">Đăng ký</a></div>
+                        <div class="header-top-right" v-else>
+                            <el-dropdown>
+                                <span class="el-dropdown-link">
+                                    {{ user.name }}
+                                    <el-icon class="el-icon--right">
+                                        <arrow-down />
+                                    </el-icon>
+                                </span>
+                                <template #dropdown>
+                                <el-dropdown-menu>
+                                    <el-dropdown-item><el-icon><User /></el-icon>Cá nhân</el-dropdown-item>
+                                    <el-dropdown-item><el-icon><ShoppingCart /></el-icon>Đơn hàng</el-dropdown-item>
+                                    <el-dropdown-item><el-icon><SwitchButton /></el-icon>Đăng xuất</el-dropdown-item>
+                                </el-dropdown-menu>
+                                </template>
+                            </el-dropdown>
+                        </div>
+                    </el-col>
                 </el-row>
             </div>
         </div>
@@ -57,7 +76,7 @@
                     </el-col>
                     <el-col :span="3">
                         <div class="cart">
-                            <el-badge :value="12" class="item-badge">
+                            <el-badge :value="carts.sum_quantity" class="item-badge">
                                 <el-button type="success" @click="visible = true" round>
                                     <span>Giỏ Hàng</span>
                                     <el-icon :size="20"><ShoppingCart /></el-icon>
@@ -97,46 +116,46 @@
             </div>
         </div>
     </div>
-    <div v-else class="header-webview">
-        abc
+    <div v-else class="header-webview-responsive">
+        <el-row :gutter="20">
+            <el-col :span="3">
+                <el-button class="icon-responsive" @click="visibleMenu = true">
+                    <el-icon><Menu /></el-icon>
+                </el-button>
+            </el-col>
+            <el-col :span="18">
+                <el-image :src="'https://bactom.com/wp-content/uploads/2022/05/logo.png'"/>
+            </el-col>
+            <el-col :span="3">
+                <el-badge :value="12" class="item-badge" @click="visible = true" round>
+                    <el-button class="icon-responsive">
+                        <el-icon><ShoppingCart /></el-icon>
+                    </el-button>
+                </el-badge>
+            </el-col>
+        </el-row>
     </div>
-    <el-drawer v-model="visible" :show-close="false" :size="'30%'">
+
+    <!-- drawer gio hang -->
+    <el-drawer v-model="visible" :show-close="false" :size="checkScreen > 768 ? '30%' : '70%'">
         <template #header="{ close }">
             <div class="icon-close">
                 <el-icon @click="close" :size="30"><CloseBold /></el-icon>
             </div>
         </template>
         <div class="cart-title">Giỏ hàng</div>
-        <div class="cart">
-            <div class="cart-content">
+        <div v-if="carts.carts.length" class="cart">
+            <div v-for="item in carts.carts" :key="item.id" class="cart-content">
                 <div class="cart-content-left">
                     <div class="img">
-                        <img src="@/assets/images/1.jpg" alt="">
+                        <img :src="item.image" alt="">
                     </div>
                     <div class="product">
                         <div class="product-name">
-                            Bánh bao mộc
+                            {{ item.name }}
                         </div>
                         <div class="product-price">
-                            1 x 30.000đ
-                        </div>
-                    </div>
-                </div>
-                <div class="btn-close">
-                    <el-icon :size="30"><CircleClose /></el-icon>
-                </div>
-            </div>
-            <div class="cart-content">
-                <div class="cart-content-left">
-                    <div class="img">
-                        <img src="@/assets/images/1.jpg" alt="">
-                    </div>
-                    <div class="product">
-                        <div class="product-name">
-                            Bánh bao mộc
-                        </div>
-                        <div class="product-price">
-                            1 x 30.000đ
+                            {{ item.quantity }} x {{ $filters.formatVND(item.price) }}
                         </div>
                     </div>
                 </div>
@@ -145,188 +164,185 @@
                 </div>
             </div>
             <div style="height:1px; background: #c3b3b3; margin:20px 0px"/>
-            <div class="total-money">Tổng tiền: 30.000đ</div>
+            <div class="total-money">Tổng tiền: {{ $filters.formatVND(carts.sum_price) }}</div>
             <div style="height:1px; background: #c3b3b3; margin:20px 0px" />
             <div class="form-button">
-                <el-button class="btn-cart" :size="30" round>XEM GIỎ HÀNG</el-button>
-                <el-button class="btn-checkout" :size="30" round>THANH TOÁN</el-button>
+                <el-button class="btn-cart" size="large" round>XEM GIỎ HÀNG</el-button>
+                <el-button class="btn-checkout" size="large" round>THANH TOÁN</el-button>
             </div>
         </div>
+        <div v-else class="cart">
+            <h5>Giỏ hàng không có sản phẩm nào</h5>
+        </div>
+    </el-drawer>
+
+
+    <!-- drawer menu -->
+    <el-drawer v-model="visibleMenu" :show-close="false" :size="'65%'" :direction="'ltr'">
+        <el-tabs
+            v-model="activeName"
+            type="card"
+            class="menu-tab-responsive"
+            @tab-click="handleClick"
+        >
+            <el-tab-pane label="SẢN PHẨM" name="first">
+                <div class="search">
+                    <el-input v-model:value="search" :placeholder="'Tìm sản phẩm...'" enter-button :suffix-icon="Search"/>
+                </div>
+                <div class="menu-info">
+                    <el-menu
+                        default-active="2"
+                        class="el-menu-vertical-demo"
+                    >
+                        <el-menu-item index="1">
+                            <span>ĐỒ SƠ CHẾ</span>
+                        </el-menu-item>
+                        <el-menu-item index="2">
+                            <span>HẢI SẢN VÙNG MIỀN</span>
+                        </el-menu-item>
+                        <el-menu-item index="3">
+                            <span>HÀNG KHÔ</span>
+                        </el-menu-item>
+                        <el-menu-item index="4">
+                            <span>RAU CỦ QUẢ</span>
+                        </el-menu-item>
+                        <el-menu-item index="5">
+                            <span>THỊT CÁ DÂN DÃ</span>
+                        </el-menu-item>
+                        <el-menu-item index="6">
+                            <span>TRÁI CÂY THEO MÙA</span>
+                        </el-menu-item>
+                        <el-menu-item index="7">
+                            <span>THỰC PHẨM KHÁC</span>
+                        </el-menu-item>
+                    </el-menu>
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="MENU" name="second">
+                <div class="menu-info">
+                    <el-menu
+                        default-active="2"
+                        class="el-menu-vertical-demo"
+                    >
+                        <el-menu-item index="1">
+                            <span>BÁC TÔM</span>
+                        </el-menu-item>
+                        <el-menu-item index="2">
+                            <span>VỀ BÁC TÔM</span>
+                        </el-menu-item>
+                        <el-menu-item index="3">
+                            <span>SẢN PHẨM</span>
+                        </el-menu-item>
+                        <el-menu-item index="4">
+                            <span>TIN TỨC</span>
+                        </el-menu-item>
+                        <el-menu-item index="5">
+                            <span>BLOG SỐNG XANH</span>
+                        </el-menu-item>
+                        <el-sub-menu index="6" v-if="user">
+                            <template #title>
+                                <span>{{ user.name }}</span>
+                            </template>
+                            <el-menu-item-group>
+                                <el-menu-item index="1-1"><el-icon><User /></el-icon>Cá nhân</el-menu-item>
+                                <el-menu-item index="1-2"><el-icon><ShoppingCart /></el-icon>Đơn hàng</el-menu-item>
+                                <el-menu-item index="1-3"><el-icon><SwitchButton /></el-icon>Đăng xuất</el-menu-item>
+                            </el-menu-item-group>
+                        </el-sub-menu>
+                        <el-menu-item index="6" v-if="!user">
+                            <span>ĐĂNG NHẬP</span>
+                        </el-menu-item>
+                        <el-menu-item index="7" v-if="!user">
+                            <span>ĐĂNG KÝ</span>
+                        </el-menu-item>
+                    </el-menu>
+                </div>
+            </el-tab-pane>
+        </el-tabs>
     </el-drawer>
 </template>
 <script lang="ts" setup>
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { inject } from 'vue'
+import 'element-plus/theme-chalk/display.css'
+import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter, useRoute } from 'vue-router'
 import { ElButton, ElDrawer } from 'element-plus'
-import { CircleCloseFilled, ShoppingCart, Search } from '@element-plus/icons-vue'
+import { CircleCloseFilled, ShoppingCart, Search, SwitchButton } from '@element-plus/icons-vue'
+import type { TabsPaneContext } from 'element-plus'
+
+const store = useStore();
+const router = useRouter();
+const emitter = inject("emitter");
+
 const visible = ref(false);
+const visibleMenu = ref(false);
 const search = ref('');
 const activeIndex = ref('1');
+const activeName = ref('first')
 const checkScreen = ref(window.innerWidth);
-watch(checkScreen, () => {
-    console.log("Data count vừa thay đổi");
-});
-onMounted(() => {
-    window.addEventListener('resize', () => {checkScreen.value = window.innerWidth} )
+
+onMounted(async() => {
+    window.addEventListener('resize', () => {checkScreen.value = window.innerWidth} );
+    await getMyInfo();
+    await getCart();
 })
-onUnmounted(() => {
+onUnmounted(() => { 
     window.removeEventListener('resize', () => {checkScreen.value = window.innerWidth})
 })
 
+
+async function getCart() {
+    let params = {
+        product_id: '',
+        quantity: ''
+    }
+    let user = JSON.parse(JSON.stringify(store.state.auth))
+    
+    if (user) {
+        await store.dispatch('home/cartData', params);
+    } else {
+        return
+    }
+}
+
+const user = computed(() => {
+    if (store.state.auth.user) {
+        return store.state.auth.user
+    }
+});
+const carts = computed(() => {
+    let shoppingCart = JSON.parse(JSON.stringify(store.state.home.cartData))
+    
+    if (shoppingCart) {
+        return JSON.parse(JSON.stringify(store.state.home.cartData));
+    }
+})
+
+async function getMyInfo() {
+    let data = await store.dispatch('auth/getMyInfo');
+    emitter.emit("user_id", data);
+}
+
+const login = () => {
+    router.push({name: 'Login'})
+}
+const register = () => {
+    router.push({name: 'Register'})
+}
+
 const handleSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
-  console.log(screen.width);
-  
+}
+const handleClick = (tab: TabsPaneContext, event: Event) => {
+  console.log(tab, event)
 }
 
 
 
 </script>
 <style lang="scss" scoped>
-    .header-webview {
-        .header-top, .header-bottom {
-            background: #7a4f3f;
-            color: #ffffff;
-        }
-        .header-top {
-            // height: 40px;
-            .content {
-                padding: 10px 0px;
-            }
-        }
-        .header-center {
-            .content {
-                padding: 20px 0px;
-                .el-content {
-                    padding: 0px 5px;
-                    .header-infomation {
-                        display: flex;
-                        height: 100%;
-                        align-items: center;
-                    }
-                }
-                .cart {
-                    .item-badge {
-                        .el-button {
-                            padding: 16px 16px;
-                            span {
-                                font-weight: bold;
-                                font-size: 17px;
-                            }
-                        }
-                    } 
-                }
-            }
-        }
-        .header-bottom {
-            .el-menu--horizontal {
-                border-bottom: none;
-            }
-            .el-menu {
-                background-color: none !important;
-            }
-            .el-menu-item {
-                color: #ffffff;
-                &:hover {
-                    background: #74d443;
-                }
-            }
-            .el-menu--horizontal>.el-sub-menu .el-sub-menu__title {
-                color: #ffffff;
-            }
-            .content {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                .el-menu {
-                    width: 100%;
-                }
-                .search {
-                    .el-input__wrapper {
-                        border-radius: 20px;
-                    }
-                }
-            }
-        }
-        .content {
-            margin: 0 auto;
-            max-width: 1200px;
-        }
-    }
-    .cart {
-        .cart-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #ffffff;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 10px 0px;
-            cursor: pointer;
-            .cart-content-left {
-                display: flex;
-                .product {
-                    padding: 0px 20px;
-                    .product-name {
-                        color: #74d443;
-                        font-size: 18px;
-                        padding: 0px 0px 10px 0px;
-                    }
-                }
-                .img {
-                    img {
-                        width: 70px;
-                        height: 70px;
-                    }
-                }
-            }
-            &:hover {
-                .btn-close {
-                    display: block;
-                }
-            }
-            .btn-close {
-                display: none;
-            }
-        }
-        .total-money {
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .form-button {
-            .btn-cart {
-                background-color: #7a4f3f;
-                color: #ffffff;
-                font-size: 17px;
-                margin: 5px 0px;
-                padding: 22px 0px;
-                width: 100%;
-                font-weight: bold;
-            }
-            .btn-checkout {
-                background-color: #74d443;
-                color: #ffffff;
-                font-size: 17px;
-                margin: 5px 0px;
-                padding: 22px 0px;
-                width: 100%;
-                font-weight: bold;
-            }
-        }
-    }
-    .cart-title {
-        font-size: 22px;
-        font-weight: bold;
-        text-align: center;
-        margin: 0px 0px 20px 0px;
-
-    }
-    .icon-close {
-        text-align: right;
-        .el-icon {
-            cursor: pointer;
-        }
-    }
+@import '@/assets/scss/homeCommon/header.scss';
 </style>
 <style lang="scss">
 .el-drawer.rtl.open {
@@ -338,6 +354,15 @@ const handleSelect = (key: string, keyPath: string[]) => {
 .search {
     .el-input__wrapper {
         border-radius: 20px;
+    }
+}
+.menu-tab-responsive {
+    .el-tabs__nav {
+        width: 100%;
+        .el-tabs__item {
+            width: 50%;
+            text-align: center;
+        }
     }
 }
 </style>
