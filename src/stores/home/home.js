@@ -3,7 +3,10 @@ import api from '../../api/home'
 export const home = {
     namespaced: true,
     state: {
-        cartData: {},
+        cartData: {
+            carts: [],
+            sum_quantity: 0
+        },
         categoryProduct: {},
         getCart: {},
     },

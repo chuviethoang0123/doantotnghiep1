@@ -26,7 +26,7 @@
                                 <el-dropdown-menu>
                                     <el-dropdown-item><el-icon><User /></el-icon>Cá nhân</el-dropdown-item>
                                     <el-dropdown-item><el-icon><ShoppingCart /></el-icon>Đơn hàng</el-dropdown-item>
-                                    <el-dropdown-item><el-icon><SwitchButton /></el-icon>Đăng xuất</el-dropdown-item>
+                                    <el-dropdown-item @click="logout"><el-icon><SwitchButton /></el-icon>Đăng xuất</el-dropdown-item>
                                 </el-dropdown-menu>
                                 </template>
                             </el-dropdown>
@@ -100,12 +100,16 @@
                 >
                     <el-menu-item index="1">Bác tôm</el-menu-item>
                     <el-sub-menu index="2">
-                    <template #title>Về bác tôm</template>
-                    <el-menu-item index="2-1">item one</el-menu-item>
-                    <el-menu-item index="2-2">item two</el-menu-item>
-                    <el-menu-item index="2-3">item three</el-menu-item>
+                        <template #title>Về bác tôm</template>
+                        <el-menu-item index="2-1">Giới thiệu</el-menu-item>
+                        <el-menu-item index="2-2">Đối tác</el-menu-item>
+                        <el-menu-item index="2-3">Thành viên</el-menu-item>
+                        <el-menu-item index="2-3">Tuyển dụng</el-menu-item>
                     </el-sub-menu>
-                    <el-menu-item index="3">Sản phẩm</el-menu-item>
+                    <el-sub-menu index="3">
+                        <template #title>Sản phẩm</template>
+                        <el-menu-item v-for="(cate, index) in categories" :key="index">{{ cate.name }}</el-menu-item>
+                    </el-sub-menu>
                     <el-menu-item index="4">Tin tức</el-menu-item>
                     <el-menu-item index="5">Blog sống xanh</el-menu-item>
                     <el-menu-item index="6">Hệ thống cửa hàng</el-menu-item>
@@ -127,7 +131,7 @@
                 <el-image :src="'https://bactom.com/wp-content/uploads/2022/05/logo.png'"/>
             </el-col>
             <el-col :span="3">
-                <el-badge :value="12" class="item-badge" @click="visible = true" round>
+                <el-badge :value="carts.sum_quantity" class="item-badge" @click="visible = true" round>
                     <el-button class="icon-responsive">
                         <el-icon><ShoppingCart /></el-icon>
                     </el-button>
@@ -160,7 +164,7 @@
                     </div>
                 </div>
                 <div class="btn-close">
-                    <el-icon :size="30"><CircleClose /></el-icon>
+                    <el-icon :size="30" @click="deleteProduct(item.id)"><CircleClose /></el-icon>
                 </div>
             </div>
             <div style="height:1px; background: #c3b3b3; margin:20px 0px"/>
@@ -194,26 +198,8 @@
                         default-active="2"
                         class="el-menu-vertical-demo"
                     >
-                        <el-menu-item index="1">
-                            <span>ĐỒ SƠ CHẾ</span>
-                        </el-menu-item>
-                        <el-menu-item index="2">
-                            <span>HẢI SẢN VÙNG MIỀN</span>
-                        </el-menu-item>
-                        <el-menu-item index="3">
-                            <span>HÀNG KHÔ</span>
-                        </el-menu-item>
-                        <el-menu-item index="4">
-                            <span>RAU CỦ QUẢ</span>
-                        </el-menu-item>
-                        <el-menu-item index="5">
-                            <span>THỊT CÁ DÂN DÃ</span>
-                        </el-menu-item>
-                        <el-menu-item index="6">
-                            <span>TRÁI CÂY THEO MÙA</span>
-                        </el-menu-item>
-                        <el-menu-item index="7">
-                            <span>THỰC PHẨM KHÁC</span>
+                        <el-menu-item v-for="(cate, index) in categories" :key="index">
+                            <span>{{ (cate.name).toUpperCase() }}</span>
                         </el-menu-item>
                     </el-menu>
                 </div>
@@ -246,7 +232,7 @@
                             <el-menu-item-group>
                                 <el-menu-item index="1-1"><el-icon><User /></el-icon>Cá nhân</el-menu-item>
                                 <el-menu-item index="1-2"><el-icon><ShoppingCart /></el-icon>Đơn hàng</el-menu-item>
-                                <el-menu-item index="1-3"><el-icon><SwitchButton /></el-icon>Đăng xuất</el-menu-item>
+                                <el-menu-item index="1-3" @click="logout"><el-icon><SwitchButton /></el-icon>Đăng xuất</el-menu-item>
                             </el-menu-item-group>
                         </el-sub-menu>
                         <el-menu-item index="6" v-if="!user">
@@ -263,6 +249,7 @@
 </template>
 <script lang="ts" setup>
 import { inject } from 'vue'
+import api from "../../../api/home";
 import 'element-plus/theme-chalk/display.css'
 import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
 import { useStore } from 'vuex'
@@ -270,6 +257,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { ElButton, ElDrawer } from 'element-plus'
 import { CircleCloseFilled, ShoppingCart, Search, SwitchButton } from '@element-plus/icons-vue'
 import type { TabsPaneContext } from 'element-plus'
+import { ElMessage } from 'element-plus'
 
 const store = useStore();
 const router = useRouter();
@@ -279,13 +267,15 @@ const visible = ref(false);
 const visibleMenu = ref(false);
 const search = ref('');
 const activeIndex = ref('1');
-const activeName = ref('first')
+const activeName = ref('first');
+const categories = ref([]);
 const checkScreen = ref(window.innerWidth);
 
 onMounted(async() => {
     window.addEventListener('resize', () => {checkScreen.value = window.innerWidth} );
     await getMyInfo();
     await getCart();
+    await getCategory();
 })
 onUnmounted(() => { 
     window.removeEventListener('resize', () => {checkScreen.value = window.innerWidth})
@@ -329,6 +319,37 @@ const login = () => {
 }
 const register = () => {
     router.push({name: 'Register'})
+}
+
+async function logout() {
+    let res = await api.logout();
+    if (res.status === true) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        localStorage.removeItem("user_id");
+        ElMessage({
+            message: 'Đăng xuất thành công',
+            type: 'success',
+        })
+        router.push({ name: 'Login' });
+        store.state.auth.user = "";
+        store.state.auth.myId = "";
+    } else {
+        ElMessage.error('Bạn chưa đăng nhập');
+    }
+}
+
+const deleteProduct = (data: String) => {
+    let params = {
+        type: 'delete',
+        quantity: '',
+        product_id: data
+    }
+    store.dispatch('home/cartData', params);
+}
+const getCategory = async () => {
+    let res = await api.getCategory();
+    categories.value = res;
 }
 
 const handleSelect = (key: string, keyPath: string[]) => {

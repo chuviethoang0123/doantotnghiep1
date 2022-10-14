@@ -6,7 +6,6 @@
             :model="ruleForm"
             status-icon
             :rules="rules"
-            label-width="120px"
             class="demo-ruleForm"
         >
             <el-form-item label="Tài khoản" prop="username">
@@ -16,20 +15,24 @@
                 <el-input v-model="ruleForm.pass" type="password" autocomplete="off" placeholder="Mật khẩu" :prefix-icon="Lock" />
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm(loginFormRef)">Đăng nhập</el-button>
-                <el-button @click="resetForm(loginFormRef)">Reset</el-button>
+                <div class="form-btn">
+                    <el-button type="primary" @click="submitForm(loginFormRef)">Đăng nhập</el-button>
+                    <el-button @click="resetForm(loginFormRef)">Reset</el-button>
+                </div>
             </el-form-item>
         </el-form>
 
-        <div class="login-facebook">
-            <el-button>Đăng nhập bằng facebook</el-button>
-        </div>
         <div class="forgot-register">
-            <a class="login-form-forgot" @click="openForgot">
-                Quên mật khẩu?
-            </a><br>
-            Hoặc
-            <a @click="register">Đăng ký ngay!</a>
+            <div class="login-facebook">
+                <el-button>Đăng nhập bằng facebook</el-button>
+            </div>
+            <div class="forgot-register">
+                <a class="login-form-forgot" @click="openForgot">
+                    Quên mật khẩu?
+                </a><br>
+                Hoặc
+                <a @click="register">Đăng ký ngay!</a>
+            </div>
         </div>
     </div>
 </template>
@@ -142,6 +145,19 @@ const resetForm = (formEl: FormInstance | undefined) => {
         font-size: 30px;
         color: red;
         font-weight: bold;
+    }
+    .el-form {
+        padding: 20px;
+        .form-btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+    .forgot-register {
+        text-align: center;
+        .login-facebook {
+            margin-bottom: 20px;
+        }
     }
 }
 </style>
