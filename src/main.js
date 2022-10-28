@@ -3,8 +3,8 @@ import App from './App.vue'
 import route from "./routes/index";
 import { store } from "./stores";
 import filters from "../src/filters/index";
-// import Antd from 'ant-design-vue';
-// import 'ant-design-vue/dist/antd.css';
+import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -25,6 +25,7 @@ const app = createApp(App);
 app.use(route);
 app.use(store);
 app.use(ElementPlus);
+app.use(Antd);
 app.use(vClickOutside);
 app.use(VueApexCharts);
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

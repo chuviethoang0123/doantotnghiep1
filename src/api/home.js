@@ -118,6 +118,29 @@ export default {
         });
     },
 
+    //sản phẩm
+    getProduct: () => {
+        const url = `${process.env.webmyphamapi}api/home-product`;
+        return new Promise((resolve, reject) => {
+            axios.get(url, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                xsrfCookieName: 'csrftoken_testtest',
+                // xsrfHeaderName: 'X-CSRFToken'
+            }).then((response) => {
+                if (response.data.status === true) {
+                    resolve(response.data.data);
+                } else {
+                    reject(response);
+                }
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
+
     // lấy sản phẩm giảm giá
     productsDiscount: () => {
         const url = `${process.env.webmyphamapi}api/product-discount`;
@@ -169,6 +192,110 @@ export default {
         const url = `${process.env.webmyphamapi}api/list-voucher`;
         return new Promise((resolve, reject) => {
             axios.get(url, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                xsrfCookieName: 'csrftoken_testtest',
+                // xsrfHeaderName: 'X-CSRFToken'
+            }).then((response) => {
+                if (response.data.status === true) {
+                    resolve(response.data.data);
+                } else {
+                    reject(response);
+                }
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
+
+    // Lấy ra danh sách thương hiệu
+    getBrand: () => {
+        const url = `${process.env.webmyphamapi}api/brand`;
+        return new Promise((resolve, reject) => {
+            axios.get(url, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                xsrfCookieName: 'csrftoken_testtest',
+                // xsrfHeaderName: 'X-CSRFToken'
+            }).then((response) => {
+                if (response.data.status === true) {
+                    resolve(response.data.data);
+                } else {
+                    reject(response);
+                }
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
+
+    //lấy chi tiết sản phẩm
+    productDetail: (data) => {
+        const url = `${process.env.webmyphamapi}api/product-detail`;
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                xsrfCookieName: 'csrftoken_testtest',
+                // xsrfHeaderName: 'X-CSRFToken'
+            }).then((response) => {
+                if (response.data.status === true) {
+                    resolve(response.data.data);
+                } else {
+                    reject(response);
+                }
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
+
+    // lấy đánh giá sản phẩm
+    rating: (data) => {
+        const url = `${process.env.webmyphamapi}api/rating?page=` + data.page;
+        let config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
+                user_id: localStorage.getItem('user_id'),
+            }
+        }
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, config, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                xsrfCookieName: 'csrftoken_testtest',
+                // xsrfHeaderName: 'X-CSRFToken'
+            }).then((response) => {
+                if (response.data.status === true) {
+                    resolve(response.data.data);
+                } else {
+                    reject(response);
+                }
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
+
+    // lấy comment sản phẩm
+    comment: (data) => {
+        const url = `${process.env.webmyphamapi}api/comment?page=` + data.page;
+        let config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
+                user_id: localStorage.getItem('user_id'),
+            }
+        }
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, config, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

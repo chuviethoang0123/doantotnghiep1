@@ -1,0 +1,98 @@
+.home-page {
+    margin-top: 30px;
+    .banner {
+        margin: 20px 0px;
+        .list-category {
+            border: 1px solid #cfc3c3;
+            border-top: none;
+            border-radius: 20px;
+            height: 100%;
+            .header {
+                line-height: 30px;
+                border: 1px solid;
+                border-radius: 15px;
+                text-align: center;
+                background: #7a4f3f;
+                color: #ffffff;
+                border-top: none;
+                font-weight: bold;
+                padding: 2px 0px;
+            }
+            .content {
+                padding: 20px;
+                .item {
+                    font-size: 18px;
+                    line-height: 25px;
+                    padding: 3px 0px;
+                    display: flex;
+                    align-items: center;
+
+                    .cate-name {
+                        margin: 0px 0px 0px 10px;
+                    }
+                }
+            }
+        }
+    }
+    .infomation {
+        margin: 70px 0px;
+        .info-content {
+            border: 1px solid #7a4f3f;
+            position: relative;
+            margin-top: 50px;
+            .content {
+                text-align: center;
+                padding: 20px 30px;
+                .title {
+                    font-size: 20px;
+                    font-weight: bold;
+                    padding: 40px 0px 20px 0px;
+                }
+                .text {
+                    font-size: 17px;
+                }
+            }
+            .inner-icon {
+                position: absolute;
+                top: -36px;
+                left: 42%;
+                background: #ffffff;
+                img {
+                    padding: 11px;
+                    border: 2px solid #7a4f3f;
+                    border-radius: 99%;
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+    .list-card {
+        margin: 60px 0px;
+        .card-title {
+            text-align: center; 
+            align-items: center; 
+            display: flex;
+            .hr {
+                width: 100%
+            }
+            .text {
+                margin: 0px 20px; 
+                color: #62AF31; 
+                font-size: 20px; 
+                font-weight: 800; 
+                width: 30%;
+            }
+        }
+        .carousel {
+            margin: 0px 20px;
+        }
+    }
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #ffffff;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #ffffff;
+}

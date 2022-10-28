@@ -4,6 +4,7 @@
           <img
             :src="product.image"
             class="image"
+            @click="redirectProduct(product.id)"
           />
           <div style="padding: 14px; position: relative">
             <div class="product-name">{{ product.name }}</div>
@@ -28,10 +29,12 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
+import { useRouter, useRoute } from 'vue-router'
 defineProps({
   product: Object
 })
 const store = useStore();
+const router = useRouter();
 const addToCart = (id: string) => {
   if (store.state.auth.user) {
     let params = {
@@ -48,14 +51,25 @@ const addToCart = (id: string) => {
     
   }
 }
+const redirectProduct = (id: String) => {
+  router.push('/product/product-detail/' + id);
+}
 </script>
 
 <style lang="scss">
 .product {
   margin: 10px 0px;
   .card-product {
+    &:hover .image {
+      -ms-transform: scale(1.1); /* IE 9 */
+      -webkit-transform: scale(1.1); /* Safari 3-8 */
+      transform: scale(1.1); 
+    }
     &:hover .icon-card {
       display: inline;
+    }
+    .image {
+      transition: transform .3s;
     }
     .product-name {
       overflow: hidden;

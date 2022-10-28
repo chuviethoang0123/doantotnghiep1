@@ -6,6 +6,9 @@ import AdminLayout from "../pages/admin/layouts/AdminLayout.vue";
 import DashBoard from "../pages/admin/DashBoard/DashBoard.vue";
 import Home from "../pages/home/HomePage/Home.vue";
 
+// import màn chi tiết sản phẩm
+import ProductDetail from '../pages/home/Product/ProductDetail.vue';
+
 // import component chức năng đăng nhập/đăng ký
 import Login from '../pages/home/Login/Login.vue';
 import Forgot from '../pages/home/Login/Forgot.vue';
@@ -108,6 +111,25 @@ const routes = [
                 component: Register,
                 meta: {
                     title: 'Đăng Ký',
+                }
+            }
+        ]
+    },
+
+    {
+        path: '/product',
+        component: HomeLayout,
+        meta: {
+            title: "Chi tết sản phẩm"
+        },
+        children: [
+            {
+                title: 'Chi tết sản phẩm',
+                path: 'product-detail/:id',
+                name: 'ProductDetail',
+                component: ProductDetail,
+                meta: {
+                    title: 'Chi tiết sản phẩm',
                 }
             }
         ]
