@@ -24,8 +24,8 @@
                                 </span>
                                 <template #dropdown>
                                 <el-dropdown-menu>
-                                    <el-dropdown-item><el-icon><User /></el-icon>Cá nhân</el-dropdown-item>
-                                    <el-dropdown-item><el-icon><ShoppingCart /></el-icon>Đơn hàng</el-dropdown-item>
+                                    <el-dropdown-item @click="redirectInfo"><el-icon><User /></el-icon>Cá nhân</el-dropdown-item>
+                                    <el-dropdown-item @click="redirectOrder"><el-icon><ShoppingCart /></el-icon>Đơn hàng</el-dropdown-item>
                                     <el-dropdown-item @click="logout"><el-icon><SwitchButton /></el-icon>Đăng xuất</el-dropdown-item>
                                 </el-dropdown-menu>
                                 </template>
@@ -230,8 +230,8 @@
                                 <span>{{ user.name }}</span>
                             </template>
                             <el-menu-item-group>
-                                <el-menu-item index="1-1"><el-icon><User /></el-icon>Cá nhân</el-menu-item>
-                                <el-menu-item index="1-2"><el-icon><ShoppingCart /></el-icon>Đơn hàng</el-menu-item>
+                                <el-menu-item index="1-1" @click="redirectInfo"><el-icon><User /></el-icon>Cá nhân</el-menu-item>
+                                <el-menu-item index="1-2" @click="redirectOrder"><el-icon><ShoppingCart /></el-icon>Đơn hàng</el-menu-item>
                                 <el-menu-item index="1-3" @click="logout"><el-icon><SwitchButton /></el-icon>Đăng xuất</el-menu-item>
                             </el-menu-item-group>
                         </el-sub-menu>
@@ -359,7 +359,13 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)
 }
 
+const redirectOrder = () => {
+    router.push({name: 'OrderUser'})
+}
 
+const redirectInfo = () => {
+    router.push({name: 'InfoUser'})
+}
 
 </script>
 <style lang="scss" scoped>

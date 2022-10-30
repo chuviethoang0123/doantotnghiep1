@@ -24,16 +24,31 @@
 
         <div class="forgot-register">
             <div class="login-facebook">
-                <el-button>Đăng nhập bằng facebook</el-button>
+                <el-button @click="loginFacebook">Đăng nhập bằng facebook</el-button>
             </div>
             <div class="forgot-register">
-                <a class="login-form-forgot" @click="openForgot">
+                <a class="login-form-forgot" @click="openForgot = true">
                     Quên mật khẩu?
                 </a><br>
                 Hoặc
                 <a @click="register">Đăng ký ngay!</a>
             </div>
         </div>
+        <el-dialog
+            v-model="openForgot"
+            title="Quên mật khẩu"
+            width="30%"
+        >
+            <el-input v-model="email" placeholder="Nhập vào Email" />
+            <template #footer>
+            <span class="dialog-footer">
+                <el-button @click="openForgot = false">Đóng</el-button>
+                <el-button type="primary" @click="submitForgot">
+                Xác nhận
+                </el-button>
+            </span>
+            </template>
+        </el-dialog>
     </div>
 </template>
 <script lang="ts" setup>
@@ -49,6 +64,9 @@ const loginFormRef = ref<FormInstance>()
 const store = useStore()
 const router = useRouter()
 const route = useRoute()
+
+const openForgot = ref(false)
+const email = ref('')
 
 const validatePass = (rule: any, value: any, callback: any) => {
   if (value === '') {
@@ -120,6 +138,39 @@ const submitForm = (formEl: FormInstance | undefined) => {
             return false
         }
     })
+}
+
+const register = () => {
+    router.push({ name: 'Register' });
+}
+
+const submitForgot = async () => {
+    if (email.value === '') {
+        ElMessage.error('Vui lòng nhập vào Email')
+        return false;
+    }
+    await api.forgot({ email: email.value })
+        .then((res) => {
+            if (res.status === true) {
+                ElMessage({
+                    message: 'Vui lòng kiểm tra mail để lấy lại mật khẩu',
+                    type: 'success',
+                })
+                openForgot.value = false;
+            } else {
+                ElMessage.error(res.message)
+            }
+        })
+        .catch((error) => { ElMessage.error('Có lỗi xảy ra')});
+}
+
+const loginFacebook = async () => {
+    let res = await api.loginFacebook();
+    if (res.status === true) {
+        window.location.href = res.data
+    } else {
+        ElMessage.error('Đăng nhập thất bại')
+    }
 }
 
 const resetForm = (formEl: FormInstance | undefined) => {

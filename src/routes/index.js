@@ -6,6 +6,10 @@ import AdminLayout from "../pages/admin/layouts/AdminLayout.vue";
 import DashBoard from "../pages/admin/DashBoard/DashBoard.vue";
 import Home from "../pages/home/HomePage/Home.vue";
 
+// import file js check  quyền người dùng
+import auth from '../middleware/auth';
+import authAdmin from '../middleware/authAdmin';
+
 // import màn chi tiết sản phẩm
 import ProductDetail from '../pages/home/Product/ProductDetail.vue';
 
@@ -14,6 +18,10 @@ import Login from '../pages/home/Login/Login.vue';
 import Forgot from '../pages/home/Login/Forgot.vue';
 import Register from '../pages/home/Login/Register.vue';
 import LoginFacebook from '../pages/home/Login/LoginFacebook.vue';
+
+// import component thông tin tài khoản, đơn hàng người dùng
+import OrderUser from '../pages/home/User/Order.vue';
+import InfoUser from '../pages/home/User/Info.vue';
 
 
 const routes = [
@@ -135,7 +143,34 @@ const routes = [
         ]
     },
 
-
+    {
+        path: '/user',
+        component: HomeLayout,
+        meta: {
+            middleware: [auth],
+            title: "Tài khoản"
+        },
+        children: [
+            {
+                title: 'Thông tin Đơn Hàng',
+                path: 'order',
+                name: 'OrderUser',
+                component: OrderUser,
+                meta: {
+                    title: 'Đơn hàng',
+                }
+            },
+            {
+                title: 'Thông tin tài khoản',
+                path: 'info',
+                name: 'InfoUser',
+                component: InfoUser,
+                meta: {
+                    title: 'Tài khoản',
+                }
+            }
+        ]
+    },
 
 
 
