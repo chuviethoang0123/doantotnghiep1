@@ -471,4 +471,24 @@ export default {
             })
         });
     },
+
+    // lấy thông tin đơn hàng
+    checkOrder: (data) => {
+        const url = `${process.env.webmyphamapi}api/info-order`;
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then((response) => {
+                if (response.data.status === true) {
+                    resolve(response.data.data);
+                } else {
+                    reject(response);
+                }
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
 }

@@ -111,7 +111,7 @@
                         <el-menu-item v-for="(cate, index) in categories" :key="index">{{ cate.name }}</el-menu-item>
                     </el-sub-menu>
                     <el-menu-item index="4">Tin tức</el-menu-item>
-                    <el-menu-item index="5">Blog sống xanh</el-menu-item>
+                    <el-menu-item index="order">Kiểm tra đơn hàng</el-menu-item>
                     <el-menu-item index="6">Hệ thống cửa hàng</el-menu-item>
                 </el-menu>
                 <div class="search">
@@ -222,8 +222,8 @@
                         <el-menu-item index="4">
                             <span>TIN TỨC</span>
                         </el-menu-item>
-                        <el-menu-item index="5">
-                            <span>BLOG SỐNG XANH</span>
+                        <el-menu-item index="order">
+                            <span>KIỂM TRA ĐƠN HÀNG</span>
                         </el-menu-item>
                         <el-sub-menu index="6" v-if="user">
                             <template #title>
@@ -246,6 +246,50 @@
             </el-tab-pane>
         </el-tabs>
     </el-drawer>
+
+    <!-- modal tra cứu thông tin đơn hàng -->
+    <el-dialog
+        class="check-order"
+        v-model="visibleOrder"
+        width="50%"
+    >
+        <template #header>
+            <div class="title-text">
+                Đơn hàng
+            </div>
+            <div class="search">
+                <div class="text">Mã đơn hàng:</div>
+                <div class="input-search">
+                    <el-input v-model="searchOrder" placeholder="Nhập mã đơn hàng cần tra cứu" size="large">
+                        <template #append>
+                            <el-button @click="checkOrder" :icon="Search" />
+                        </template>
+                    </el-input>
+                </div>
+            </div>
+        </template>
+        <template #footer>
+            <el-button key="back" @click="cancelOrder">Trở lại</el-button>
+        </template>
+        <div class="info-order">
+            <div v-if="infoOrder">
+                <div v-if="infoOrder.message" style="text-align: center; font-size: 18px; color: red">
+                    {{ infoOrder.message }}
+                </div>
+                <div v-else class="info">
+                    <div class="title" style="text-align: center">
+                        <h2>Thông tin đơn hàng</h2>
+                    </div>
+                    <p><strong>Mã đơn hàng:</strong> {{ infoOrder.code }}</p>
+                    <p><strong>Họ tên:</strong> {{ infoOrder.name }}</p>
+                    <p><strong>Số điện thoại:</strong> {{ infoOrder.phone }}</p>
+                    <p><strong>Ngày đăt:</strong> {{ $filters.formatDate(infoOrder.date) }}</p>
+                    <p><strong>Số tiền:</strong> {{ $filters.formatVND(infoOrder.money) }} - {{ infoOrder.isPayment }}</p>
+                    <p><strong>Tình trạng đơn hàng:</strong> {{ infoOrder.action }}</p>
+                </div>
+            </div>
+        </div>
+    </el-dialog>
 </template>
 <script lang="ts" setup>
 import { inject } from 'vue'
@@ -261,15 +305,19 @@ import { ElMessage } from 'element-plus'
 
 const store = useStore();
 const router = useRouter();
-const emitter = inject("emitter");
+const emitter : any = inject("emitter");
 
 const visible = ref(false);
 const visibleMenu = ref(false);
+const visibleOrder = ref(false);
 const search = ref('');
 const activeIndex = ref('1');
 const activeName = ref('first');
 const categories = ref([]);
 const checkScreen = ref(window.innerWidth);
+const current = ref('');
+const infoOrder = ref('');
+const searchOrder = ref('');
 
 onMounted(async() => {
     window.addEventListener('resize', () => {checkScreen.value = window.innerWidth} );
@@ -308,6 +356,12 @@ const carts = computed(() => {
         return JSON.parse(JSON.stringify(store.state.home.cartData));
     }
 })
+
+watch(() => current.value, (first, second) => {
+    if (current.value === 'order') {
+        visibleOrder.value = true
+    }
+});
 
 async function getMyInfo() {
     let data = await store.dispatch('auth/getMyInfo');
@@ -353,10 +407,15 @@ const getCategory = async () => {
 }
 
 const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+  current.value = key
 }
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)
+}
+
+const checkOrder = async () => {
+    let res = await api.checkOrder({ search: searchOrder.value });
+    infoOrder.value = res;
 }
 
 const redirectOrder = () => {
@@ -365,6 +424,10 @@ const redirectOrder = () => {
 
 const redirectInfo = () => {
     router.push({name: 'InfoUser'})
+}
+
+const cancelOrder = () => {
+    visibleOrder.value = false
 }
 
 </script>
@@ -392,4 +455,5 @@ const redirectInfo = () => {
         }
     }
 }
+
 </style>

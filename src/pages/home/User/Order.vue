@@ -38,6 +38,7 @@ const activeName = ref('1')
     .el-tabs__nav.is-top {
         width: 100%;
         text-align: center;
+        z-index: 1;
     }
     .el-tabs__content {
         display: none;

@@ -106,9 +106,8 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ElMessage } from 'element-plus'
-
 import { ref, inject, onMounted, computed, watch } from 'vue'
+import { ElMessage } from 'element-plus'
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
 
@@ -118,7 +117,7 @@ const props = defineProps({
   stt: { type: String, default: '' },
 })
 
-const emitter = inject("emitter");
+const emitter : any = inject("emitter");
 const store = useStore();
 const router = useRouter();
 
