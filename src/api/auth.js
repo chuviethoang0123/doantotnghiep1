@@ -3,7 +3,7 @@ export default {
 
     //Lấy user
     authUser: () => {
-        const url = `${process.env.webmyphamapi}api/auth/user`;
+        const url = `${process.env.webthucphamapi}api/auth/user`;
         let config = {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token'),

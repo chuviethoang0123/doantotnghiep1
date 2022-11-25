@@ -9,7 +9,7 @@
         .content {
             padding: 10px 0px;
             .header-top-right {
-                .el-dropdown-link {
+                a {
                     color: #ffffff;
                 }
             }
@@ -50,6 +50,7 @@
         }
         .el-menu {
             background-color: none !important;
+            height: 50px;
         }
         .el-menu-item {
             color: #ffffff;
@@ -186,5 +187,39 @@
     text-align: right;
     .el-icon {
         cursor: pointer;
+    }
+}
+.check-order {
+    .title-text {
+        font-size: 24px;
+        text-align: center;
+        font-weight: 600;
+    }
+    .search {
+        display: flex;
+        align-items: center;
+        margin-top: 20px !important;
+
+        .text {
+            margin-right: 20px;
+            font-weight: 600;
+        }
+
+        .input-search {
+            width: 80%;
+            display: flex;
+
+            button {
+                height: 40px;
+            }
+        }
+    }
+
+    .message-error {
+        svg {
+            color: red !important;
+            margin-right: 5px;
+            font-size: 14px;
+        }
     }
 }

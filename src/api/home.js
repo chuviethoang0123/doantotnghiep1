@@ -4,7 +4,7 @@ export default {
 
     //đăng nhập
     login(data) {
-        const url = `${process.env.webmyphamapi}api/auth/login`;
+        const url = `${process.env.webthucphamapi}api/auth/login`;
         return new Promise((resolve, reject) => {
             axios.post(url, data, {}, {
                 headers: {
@@ -27,7 +27,7 @@ export default {
 
     // đăng xuất
     logout() {
-        const url = `${process.env.webmyphamapi}api/auth/logout`;
+        const url = `${process.env.webthucphamapi}api/auth/logout`;
         const token = {token: localStorage.getItem('token')};
         return new Promise((resolve, reject) => {
             axios.post(url, token, {}, {
@@ -51,7 +51,7 @@ export default {
 
     //đăng ký
     register(data) {
-        const url = `${process.env.webmyphamapi}api/auth/register`;
+        const url = `${process.env.webthucphamapi}api/auth/register`;
         return new Promise((resolve, reject) => {
             axios.post(url, data, {}, {
                 headers: {
@@ -74,7 +74,7 @@ export default {
 
     //Lấy lại mật khẩu
     forgot(data) {
-        const url = `${process.env.webmyphamapi}api/reset-password`;
+        const url = `${process.env.webthucphamapi}api/reset-password`;
         return new Promise((resolve, reject) => {
             axios.post(url, data).then((response) => {
                 if (response.data.status === true) {
@@ -88,7 +88,7 @@ export default {
         });
     },
     reset(data) {
-        const url = `${process.env.webmyphamapi}api/reset`;
+        const url = `${process.env.webthucphamapi}api/reset`;
         return new Promise((resolve, reject) => {
             axios.post(url, data).then((response) => {
                 if (response.data.status === true) {
@@ -102,7 +102,7 @@ export default {
         });
     },
     loginFacebook:() => {
-        const url = `${process.env.webmyphamapi}login-facebook`;
+        const url = `${process.env.webthucphamapi}login-facebook`;
         return new Promise((resolve, reject) => {
             axios.get(url, {}, {
                 headers: {
@@ -125,7 +125,7 @@ export default {
 
     // lấy danh sách đơn hàng
     getCart: (data) => {
-        const url = `${process.env.webmyphamapi}api/get-cart`;
+        const url = `${process.env.webthucphamapi}api/get-cart`;
         let config = {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -153,7 +153,7 @@ export default {
 
     // thêm vào giỏ hàng vuex
     cartData: (data) => {
-        const url = `${process.env.webmyphamapi}api/add-to-cart`;
+        const url = `${process.env.webthucphamapi}api/add-to-cart`;
         let config = {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -178,7 +178,7 @@ export default {
 
     // lấy danh sách category đổ vào header
     getCategory: () => {
-        const url = `${process.env.webmyphamapi}api/category`;
+        const url = `${process.env.webthucphamapi}api/category`;
         return new Promise((resolve, reject) => {
             axios.get(url, {}, {
                 headers: {
@@ -201,7 +201,7 @@ export default {
 
     //Lấy slide
     getSlide: () => {
-        const url = `${process.env.webmyphamapi}api/home-slide`;
+        const url = `${process.env.webthucphamapi}api/home-slide`;
         return new Promise((resolve, reject) => {
             axios.get(url, {}, {
                 headers: {
@@ -224,7 +224,7 @@ export default {
 
     //sản phẩm
     getProduct: () => {
-        const url = `${process.env.webmyphamapi}api/home-product`;
+        const url = `${process.env.webthucphamapi}api/home-product`;
         return new Promise((resolve, reject) => {
             axios.get(url, {}, {
                 headers: {
@@ -247,7 +247,7 @@ export default {
 
     // lấy sản phẩm giảm giá
     productsDiscount: () => {
-        const url = `${process.env.webmyphamapi}api/product-discount`;
+        const url = `${process.env.webthucphamapi}api/product-discount`;
         return new Promise((resolve, reject) => {
             axios.get(url, {}, {
                 headers: {
@@ -270,7 +270,7 @@ export default {
 
     // lấy sản phẩm bán chạy
     productsSelling: () => {
-        const url = `${process.env.webmyphamapi}api/product-selling`;
+        const url = `${process.env.webthucphamapi}api/product-selling`;
         return new Promise((resolve, reject) => {
             axios.get(url, {}, {
                 headers: {
@@ -293,7 +293,7 @@ export default {
 
     //lấy danh sách voucher màn thanh toán
     listVoucher: () => {
-        const url = `${process.env.webmyphamapi}api/list-voucher`;
+        const url = `${process.env.webthucphamapi}api/list-voucher`;
         return new Promise((resolve, reject) => {
             axios.get(url, {}, {
                 headers: {
@@ -316,7 +316,7 @@ export default {
 
     // Lấy ra danh sách thương hiệu
     getBrand: () => {
-        const url = `${process.env.webmyphamapi}api/brand`;
+        const url = `${process.env.webthucphamapi}api/brand`;
         return new Promise((resolve, reject) => {
             axios.get(url, {}, {
                 headers: {
@@ -339,7 +339,7 @@ export default {
 
     //lấy chi tiết sản phẩm
     productDetail: (data) => {
-        const url = `${process.env.webmyphamapi}api/product-detail`;
+        const url = `${process.env.webthucphamapi}api/product-detail`;
         return new Promise((resolve, reject) => {
             axios.post(url, data, {}, {
                 headers: {
@@ -362,7 +362,7 @@ export default {
 
     // lấy đánh giá sản phẩm
     rating: (data) => {
-        const url = `${process.env.webmyphamapi}api/rating?page=` + data.page;
+        const url = `${process.env.webthucphamapi}api/rating?page=` + data.page;
         let config = {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -391,7 +391,7 @@ export default {
 
     // api đánh giá sản phẩm với đơn đã mua hàng
     userRate: (data) => {
-        const url = `${process.env.webmyphamapi}api/user-rate`;
+        const url = `${process.env.webthucphamapi}api/user-rate`;
         let config = {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -420,7 +420,7 @@ export default {
 
     // lấy comment sản phẩm
     comment: (data) => {
-        const url = `${process.env.webmyphamapi}api/comment?page=` + data.page;
+        const url = `${process.env.webthucphamapi}api/comment?page=` + data.page;
         let config = {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -449,7 +449,7 @@ export default {
 
     // Cập nhật thông tin người dùng
     updateUser: (data) => {
-        const url = `${process.env.webmyphamapi}api/auth/update-user`;
+        const url = `${process.env.webthucphamapi}api/auth/update-user`;
         let config = {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -466,6 +466,108 @@ export default {
                 } else {
                     resolve(response.data);
                 }
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
+
+    // lấy thông tin đơn hàng
+    checkOrder: (data) => {
+        const url = `${process.env.webthucphamapi}api/info-order`;
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then((response) => {
+                if (response.data.status === true) {
+                    resolve(response.data.data);
+                } else {
+                    reject(response);
+                }
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
+
+
+    // Api vận chuyển tỉnh, thành phố
+
+    getCity: () => {
+        const url = `https://online-gateway.ghn.vn/shiip/public-api/master-data/province`;
+        let config = {
+            headers: {
+              token: '9dd53078-7773-11ec-b18b-3a9c67615aba',
+            }
+        }
+        return new Promise((resolve, reject) => {
+            axios.get(url, config, {
+                withCredentials: true,
+                xsrfCookieName: 'csrftoken_testtest',
+            }).then((response) => {
+                    resolve(response.data.data);
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
+
+    getDistrict: (data) => {
+        const url = `https://online-gateway.ghn.vn/shiip/public-api/master-data/district`;
+        let config = {
+            headers: {
+              token: '9dd53078-7773-11ec-b18b-3a9c67615aba',
+            }
+        }
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, config, {
+                withCredentials: true,
+                xsrfCookieName: 'csrftoken_testtest',
+                // xsrfHeaderName: 'X-CSRFToken'
+            }).then((response) => {
+                resolve(response.data.data);
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
+
+    getWard: (data) => {
+        const url = `https://online-gateway.ghn.vn/shiip/public-api/master-data/ward`;
+        let config = {
+            headers: {
+              token: '9dd53078-7773-11ec-b18b-3a9c67615aba',
+            }
+        }
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, config, {
+                withCredentials: true,
+                xsrfCookieName: 'csrftoken_testtest',
+                // xsrfHeaderName: 'X-CSRFToken'
+            }).then((response) => {
+                resolve(response.data.data);
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
+
+    getService: (data) => {
+        const url = `https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/available-services`;
+        let config = {
+            headers: {
+              token: '9dd53078-7773-11ec-b18b-3a9c67615aba',
+            }
+        }
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, config, {
+                withCredentials: true,
+                xsrfCookieName: 'csrftoken_testtest',
+                // xsrfHeaderName: 'X-CSRFToken'
+            }).then((response) => {
+                resolve(response.data.data);
             }).catch((response) => {
                 reject(response);
             })

@@ -1,4 +1,4 @@
-HOMEPAGE = https://webmypham-dev.vn:2222/
-WEBMYPHAMAPI = http://127.0.0.1:2223/
+HOMEPAGE = https://webthucpham-dev.vn:2222/
+WEBTHUCPHAMAPI = http://webthucpham.vn/
 
 PORT = 9000

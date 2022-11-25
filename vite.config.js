@@ -18,7 +18,7 @@ export default ({mode}) => {
     define: {
       'process.env': {
         homePage: process.env.HOMEPAGE,
-        webmyphamapi: process.env.WEBMYPHAMAPI,
+        webthucphamapi: process.env.WEBTHUCPHAMAPI,
       }
     },
     server: {
