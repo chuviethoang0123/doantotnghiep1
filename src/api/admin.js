@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
     // Báo cáo
     responseTime: (data) => {
-        const url = `${process.env.webmyphamapi}admin/dashboard`;
+        const url = `${process.env.webthucphamapi}admin/dashboard`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -20,7 +20,7 @@ export default {
     
     //Slide
     listSlide: (data) => {
-        const url = `${process.env.webmyphamapi}admin/slide/list?page=` + data.page;
+        const url = `${process.env.webthucphamapi}admin/slide/list?page=` + data.page;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -35,7 +35,7 @@ export default {
         });
     },
     deleteSlide: (data) => {
-        const url = `${process.env.webmyphamapi}admin/slide/delete`;
+        const url = `${process.env.webthucphamapi}admin/slide/delete`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -51,7 +51,7 @@ export default {
         });
     },
     createSlide: (data) => {
-        const url = `${process.env.webmyphamapi}admin/slide/create`;
+        const url = `${process.env.webthucphamapi}admin/slide/create`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -66,7 +66,7 @@ export default {
         });
     },
     updateSlide: (data) => {
-        const url = `${process.env.webmyphamapi}admin/slide/update`;
+        const url = `${process.env.webthucphamapi}admin/slide/update`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -83,7 +83,7 @@ export default {
 
     //Category
     listCategory: (data) => {
-        const url = `${process.env.webmyphamapi}admin/category/list?page=` + data.page;
+        const url = `${process.env.webthucphamapi}admin/category/list?page=` + data.page;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -98,7 +98,7 @@ export default {
         });
     },
     deleteCategory: (data) => {
-        const url = `${process.env.webmyphamapi}admin/category/delete`;
+        const url = `${process.env.webthucphamapi}admin/category/delete`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -114,7 +114,7 @@ export default {
         });
     },
     createCategory: (data) => {
-        const url = `${process.env.webmyphamapi}admin/category/create`;
+        const url = `${process.env.webthucphamapi}admin/category/create`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -129,7 +129,7 @@ export default {
         });
     },
     updateCategory: (data) => {
-        const url = `${process.env.webmyphamapi}admin/category/update`;
+        const url = `${process.env.webthucphamapi}admin/category/update`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -146,7 +146,7 @@ export default {
 
     //Brand
     listBrand: (data) => {
-        const url = `${process.env.webmyphamapi}admin/brand/list?page=` + data.page;
+        const url = `${process.env.webthucphamapi}admin/brand/list?page=` + data.page;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -161,7 +161,7 @@ export default {
         });
     },
     deleteBrand: (data) => {
-        const url = `${process.env.webmyphamapi}admin/brand/delete`;
+        const url = `${process.env.webthucphamapi}admin/brand/delete`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -177,7 +177,7 @@ export default {
         });
     },
     createBrand: (data) => {
-        const url = `${process.env.webmyphamapi}admin/brand/create`;
+        const url = `${process.env.webthucphamapi}admin/brand/create`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -192,7 +192,7 @@ export default {
         });
     },
     updateBrand: (data) => {
-        const url = `${process.env.webmyphamapi}admin/brand/update`;
+        const url = `${process.env.webthucphamapi}admin/brand/update`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -209,7 +209,7 @@ export default {
 
     //Voucher
     listVoucher: (data) => {
-        const url = `${process.env.webmyphamapi}admin/voucher/list?page=` + data.page;
+        const url = `${process.env.webthucphamapi}admin/voucher/list?page=` + data.page;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -224,7 +224,7 @@ export default {
         });
     },
     deleteVoucher: (data) => {
-        const url = `${process.env.webmyphamapi}admin/voucher/delete`;
+        const url = `${process.env.webthucphamapi}admin/voucher/delete`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -240,7 +240,7 @@ export default {
         });
     },
     createVoucher: (data) => {
-        const url = `${process.env.webmyphamapi}admin/voucher/create`;
+        const url = `${process.env.webthucphamapi}admin/voucher/create`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -255,7 +255,7 @@ export default {
         });
     },
     detailVoucher: (data) => {
-        const url = `${process.env.webmyphamapi}admin/voucher/detail`;
+        const url = `${process.env.webthucphamapi}admin/voucher/detail`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -270,7 +270,7 @@ export default {
         });
     },
     updateVoucher: (data) => {
-        const url = `${process.env.webmyphamapi}admin/voucher/update`;
+        const url = `${process.env.webthucphamapi}admin/voucher/update`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -287,7 +287,7 @@ export default {
 
     //Product
     listProduct: (data) => {
-        const url = `${process.env.webmyphamapi}admin/product/list?page=` + data.page;
+        const url = `${process.env.webthucphamapi}admin/product/list?page=` + data.page;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -302,7 +302,7 @@ export default {
         });
     },
     deleteProduct: (data) => {
-        const url = `${process.env.webmyphamapi}admin/product/delete`;
+        const url = `${process.env.webthucphamapi}admin/product/delete`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -317,7 +317,7 @@ export default {
         });
     },
     createProduct: (data) => {
-        const url = `${process.env.webmyphamapi}admin/product/create`;
+        const url = `${process.env.webthucphamapi}admin/product/create`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -332,7 +332,7 @@ export default {
         });
     },
     detailProduct: (data) => {
-        const url = `${process.env.webmyphamapi}admin/product/detail`;
+        const url = `${process.env.webthucphamapi}admin/product/detail`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -347,7 +347,7 @@ export default {
         });
     },
     updateProduct: (data) => {
-        const url = `${process.env.webmyphamapi}admin/product/update`;
+        const url = `${process.env.webthucphamapi}admin/product/update`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -362,7 +362,7 @@ export default {
         });
     },
     deleteImage: (data) => {
-        const url = `${process.env.webmyphamapi}admin/product/delete-image`;
+        const url = `${process.env.webthucphamapi}admin/product/delete-image`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -379,7 +379,7 @@ export default {
 
     //order
     getListOrder: (data) => {
-        const url = `${process.env.webmyphamapi}admin/order/list`;
+        const url = `${process.env.webthucphamapi}admin/order/list`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -394,7 +394,7 @@ export default {
         });
     },
     getOrder: (data) => {
-        const url = `${process.env.webmyphamapi}admin/order/detail`;
+        const url = `${process.env.webthucphamapi}admin/order/detail`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -409,7 +409,7 @@ export default {
         });
     },
     changeAction: (data) => {
-        const url = `${process.env.webmyphamapi}admin/order/change-action`;
+        const url = `${process.env.webthucphamapi}admin/order/change-action`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -424,7 +424,7 @@ export default {
         });
     },
     cancelOrder: (data) => {
-        const url = `${process.env.webmyphamapi}admin/order/cancel-order`;
+        const url = `${process.env.webthucphamapi}admin/order/cancel-order`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -441,7 +441,7 @@ export default {
 
     //Kho hàng
     searchProduct: (data) => {
-        const url = `${process.env.webmyphamapi}admin/import/get-product`;
+        const url = `${process.env.webthucphamapi}admin/import/get-product`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -457,7 +457,7 @@ export default {
     },
 
     importWarehouse:(data) => {
-        const url = `${process.env.webmyphamapi}admin/import/import-warehouse`;
+        const url = `${process.env.webthucphamapi}admin/import/import-warehouse`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -474,7 +474,7 @@ export default {
 
     //User
     listUser: (data) => {
-        const url = `${process.env.webmyphamapi}admin/user/list`;
+        const url = `${process.env.webthucphamapi}admin/user/list`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -489,7 +489,7 @@ export default {
         });
     },
     updateRole: (data) => {
-        const url = `${process.env.webmyphamapi}admin/user/update-role`;
+        const url = `${process.env.webthucphamapi}admin/user/update-role`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -504,7 +504,7 @@ export default {
         });
     },
     deleteUser: (data) => {
-        const url = `${process.env.webmyphamapi}admin/user/delete`;
+        const url = `${process.env.webthucphamapi}admin/user/delete`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {
@@ -519,7 +519,7 @@ export default {
         });
     },
     createUser: (data) => {
-        const url = `${process.env.webmyphamapi}admin/user/create`;
+        const url = `${process.env.webthucphamapi}admin/user/create`;
         return new Promise((resolve, reject) => {
             axios.post(url, data)
                 .then((response) => {

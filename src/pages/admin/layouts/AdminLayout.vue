@@ -1,17 +1,17 @@
 <template>
     <div class="layout">
-        <div class="webmypham-header">
+        <div class="webthucpham-header">
             <Header></Header>
         </div>
-        <div class="webmypham-layout">
-            <div class="webmypham-sidebar">
+        <div class="webthucpham-layout">
+            <div class="webthucpham-sidebar">
                 <Sidebar></Sidebar>
             </div>
-            <div class="webmypham-main-content">
-                <div class="webmypham-content">
+            <div class="webthucpham-main-content">
+                <div class="webthucpham-content">
                     <router-view></router-view>
                 </div>
-                <div class="webmypham-footer">
+                <div class="webthucpham-footer">
                     <Footer></Footer>
                 </div>
             </div>
@@ -31,24 +31,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.webmypham-layout {
+.webthucpham-layout {
     display: flex;
     height: 100vh;
 
-    .webmypham-sidebar {
+    .webthucpham-sidebar {
         height: 100%;
     }
 
-    .webmypham-main-content {
+    .webthucpham-main-content {
         // flex: auto;
         width: 100%;
 
-        .webmypham-header {
+        .webthucpham-header {
             position: relative;
             z-index: 2;
         }
 
-        .webmypham-content {
+        .webthucpham-content {
             /*padding: 20px;*/
             max-height: calc(100vh - 60px);
             overflow: hidden auto;
@@ -56,7 +56,7 @@ export default {
             background: #f1eded;
         }
 
-        .webmypham-footer {
+        .webthucpham-footer {
             padding: 20px;
             flex-shrink: 0;
             width: 100%;
