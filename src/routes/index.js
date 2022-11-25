@@ -2,8 +2,6 @@ import {createRouter, createWebHashHistory} from 'vue-router';
 import {store} from "../stores";
 
 import HomeLayout from "../pages/home/layouts/HomeLayout.vue";
-import AdminLayout from "../pages/admin/layouts/AdminLayout.vue";
-import DashBoard from "../pages/admin/DashBoard/DashBoard.vue";
 import Home from "../pages/home/HomePage/Home.vue";
 
 // import file js check  quyền người dùng
@@ -22,6 +20,29 @@ import LoginFacebook from '../pages/home/Login/LoginFacebook.vue';
 // import component thông tin tài khoản, đơn hàng người dùng
 import OrderUser from '../pages/home/User/Order.vue';
 import InfoUser from '../pages/home/User/Info.vue';
+
+// import error 404 (Không tìm thấy trang)
+import Error404 from "../pages/home/errors/Error404.vue";
+
+
+//admin
+import AdminLayout from "../pages/admin/layouts/AdminLayout.vue";
+import Dashboard from '../pages/admin/Dashboard/Dashboard.vue';
+import Slide from '../pages/admin/Slide/index.vue';
+import Brand from '../pages/admin/Brand/index.vue';
+import Voucher from '../pages/admin/Voucher/index.vue';
+import VoucherCreate from '../pages/admin/Voucher/create.vue';
+import VoucherUpdate from '../pages/admin/Voucher/update.vue';
+import Product from '../pages/admin/Product/index.vue';
+import ProductCreate from '../pages/admin/Product/create.vue';
+import ProductUpdate from '../pages/admin/Product/update.vue';
+import Order from '../pages/admin/Order/index.vue';
+import OrderDetail from '../pages/admin/Order/detail.vue';
+import CategoryAdmin from '../pages/admin/Category/index.vue';
+import AccountAdmin from '../pages/admin/User/AccountAdmin.vue';
+import User from '../pages/admin/User/Index.vue';
+import CreateUser from '../pages/admin/User/create.vue';
+import ImportProduct from '../pages/admin/Import/ImportProduct.vue';
 
 
 const routes = [
@@ -176,23 +197,181 @@ const routes = [
 
 
     //admin
+    //các page admin
     {
         path: '/admin',
         component: AdminLayout,
         meta: {
+            middleware: [authAdmin],
             title: "Admin"
         },
         children: [
             {
-                title: 'Admin',
-                path: '/',
-                name: 'Admin',
-                component: DashBoard,
+                title: 'Dashboard',
+                path: 'dashboard',
+                name: 'Dashboard',
+                component: Dashboard,
                 meta: {
-                    title: 'DashBoard',
+                    title: 'Dashboard',
                 }
-            }
+            },
+            {
+                title: 'Slide',
+                path: 'slide',
+                name: 'Slide',
+                component: Slide,
+                meta: {
+                    title: 'Slide',
+                }
+            },
+            {
+                title: 'Thể loại',
+                path: 'category',
+                name: 'CategoryAdmin',
+                component: CategoryAdmin,
+                meta: {
+                    title: 'Thể loại',
+                }
+            },
+            {
+                title: 'Thương hiệu',
+                path: 'brand',
+                name: 'Brand',
+                component: Brand,
+                meta: {
+                    title: 'Thương hiệu',
+                }
+            },
+            {
+                title: 'Voucher',
+                path: 'voucher',
+                name: 'Voucher',
+                component: Voucher,
+                meta: {
+                    title: 'Voucher',
+                }
+            },
+            {
+                title: 'Voucher',
+                path: 'voucher/create',
+                name: 'VoucherCreate',
+                component: VoucherCreate,
+                meta: {
+                    title: 'Voucher',
+                }
+            },
+            {
+                title: 'Voucher',
+                path: 'voucher/update',
+                name: 'VoucherUpdate',
+                component: VoucherUpdate,
+                meta: {
+                    title: 'Voucher',
+                }
+            },
+
+            // Sản phẩm
+            {
+                title: 'Sản phẩm',
+                path: 'product',
+                name: 'Product',
+                component: Product,
+                meta: {
+                    title: 'Sản phẩm',
+                }
+            },
+            {
+                title: 'Thêm mới',
+                path: 'product/create',
+                name: 'ProductCreate',
+                component: ProductCreate,
+                meta: {
+                    title: 'Thêm mới',
+                }
+            },
+            {
+                title: 'Chỉnh sửa',
+                path: 'product/update',
+                name: 'ProductUpdate',
+                component: ProductUpdate,
+                meta: {
+                    title: 'Chỉnh sửa',
+                }
+            },
+
+            //Đơn hàng
+            {
+                title: 'Đơn hàng',
+                path: 'order',
+                name: 'Order',
+                component: Order,
+                meta: {
+                    title: 'Đơn hàng',
+                }
+            },
+            {
+                title: 'Chi tiết',
+                path: 'order/detail',
+                name: 'OrderDetail',
+                component: OrderDetail,
+                meta: {
+                    title: 'Chi tiết',
+                }
+            },
+
+
+            //User
+            {
+                title: 'Tài khoản',
+                path: 'user',
+                name: 'User',
+                component: User,
+                meta: {
+                    title: 'Tài khoản',
+                }
+            },
+            {
+                title: 'Tài khoản',
+                path: 'account',
+                name: 'AccountAdmin',
+                component: AccountAdmin,
+                meta: {
+                    title: 'Tài khoản',
+                }
+            },
+            {
+                title: 'Tạo mới',
+                path: 'user/create',
+                name: 'CreateUser',
+                component: CreateUser,
+                meta: {
+                    title: 'Tạo mới',
+                }
+            },
+
+            //Nhập kho
+            {
+                title: 'Nhập kho',
+                path: 'import',
+                name: 'ImportProduct',
+                component: ImportProduct,
+                meta: {
+                    title: 'Nhập kho',
+                }
+            },
         ]
+    },
+
+
+
+    // error 404 not found
+    {
+        path: "/:pathMatch(.*)*",
+        name: 'Error404',
+        component: Error404,
+        meta: {
+            title: 'Không tìm thấy trang'
+        }
     },
 ]
 const router = createRouter({

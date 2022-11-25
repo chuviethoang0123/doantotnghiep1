@@ -11,6 +11,8 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import vClickOutside from "click-outside-vue3";
 import VueApexCharts from "vue3-apexcharts";
 import mitt from 'mitt';
+import Breadcrums from './components/common/Breadcrums.vue';
+import CKEditor from '@ckeditor/ckeditor5-vue';
 // import { createVuetify } from 'vuetify'
 const emitter = mitt();
 
@@ -28,6 +30,8 @@ app.use(ElementPlus);
 app.use(Antd);
 app.use(vClickOutside);
 app.use(VueApexCharts);
+app.use(CKEditor);
+app.component('Breadcrums',  Breadcrums); 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }

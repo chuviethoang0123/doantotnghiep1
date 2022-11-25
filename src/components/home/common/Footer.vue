@@ -5,7 +5,7 @@
                 <el-col :xs="12" :sm="12" :md="6">
                     <h2>Về chúng tôi</h2>
                     <div class="logo">
-                        <img src="../../../assets/images/logo.png" alt="">
+                        <img style="width: 80%; height: 70px" src="@/assets/images/icon-logo.png" alt="">
                     </div>
                     <div class="info">Cung cấp sản phẩm chất lượng từ các thị trường và thương hiệu hàng đầu</div>
                     <div class="address">

@@ -9,7 +9,7 @@
         .content {
             padding: 10px 0px;
             .header-top-right {
-                .el-dropdown-link {
+                a {
                     color: #ffffff;
                 }
             }
@@ -50,6 +50,7 @@
         }
         .el-menu {
             background-color: none !important;
+            height: 50px;
         }
         .el-menu-item {
             color: #ffffff;

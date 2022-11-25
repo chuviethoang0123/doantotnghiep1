@@ -13,7 +13,7 @@
                             0386132297</div>
                     </el-col>
                     <el-col :span="6" :offset="7">
-                        <div class="header-top-right" v-if="!user"><a @click="login">Đăng nhập</a>/<a @click="register">Đăng ký</a></div>
+                        <div class="header-top-right" v-if="!user"><a @click="login">Đăng nhập</a> / <a @click="register">Đăng ký</a></div>
                         <div class="header-top-right" v-else>
                             <el-dropdown>
                                 <span class="el-dropdown-link">
@@ -39,7 +39,7 @@
             <div class="content">
                 <el-row style="align-items: center">
                     <el-col :span="5">
-                        <el-image :src="'https://bactom.com/wp-content/uploads/2022/05/logo.png'"/>
+                        <img style="width: 214px; height: 106px" src="@/assets/images/cvhoang-logo.png" alt="">
                     </el-col>
                     <el-col class="el-content" :span="5">
                         <div class="header-infomation">
