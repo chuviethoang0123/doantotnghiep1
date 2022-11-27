@@ -1,6 +1,6 @@
 <template>
     <div class="home-checkout">
-        <el-row :gutter="24">
+        <el-row :gutter="50">
             <el-col :span="15">
                 <div class="info-order">Thông tin đặt hàng</div>
                 <div class="info-order-content">
@@ -84,19 +84,21 @@
             <el-col :span="9">
                 <div class="info-payment">
                     <div class="title-info">Đơn hàng của bạn</div>
-                    <div class="product content">
+                    <div class="product">
                         <div class="title">Sản phẩm</div>
-                        <el-row :gutter="24" v-for="(item,index) in carts.carts" :key="index">
-                            <el-col :span="12">
-                                <div class="text">{{item.name}}</div>
-                            </el-col>
-                            <el-col :span="12">
-                                <div class="value">{{ $filters.formatVND(item.price) }}</div>
-                            </el-col>
-                        </el-row>
+                        <div class="product-content">
+                            <el-row v-for="(item,index) in carts.carts" :key="index">
+                                <el-col :span="12">
+                                    <div class="text">{{item.name}}</div>
+                                </el-col>
+                                <el-col :span="12">
+                                    <div class="value">{{ $filters.formatVND(item.price) }}</div>
+                                </el-col>
+                            </el-row>
+                        </div>
                     </div>
                     <div class="content">
-                        <el-row :gutter="24">
+                        <el-row>
                             <el-col :span="12">
                                 <div class="text">Tổng</div>
                             </el-col>
@@ -104,7 +106,7 @@
                                 <div class="value">{{ $filters.formatVND(carts.sum_price) }}</div>
                             </el-col>
                         </el-row>
-                        <el-row :gutter="24">
+                        <el-row>
                             <el-col :span="12">
                                 <div class="text">Mã giảm giá:</div>
                             </el-col>
@@ -112,7 +114,7 @@
                                 <div class="value">- {{ okVoucher.discount_price ? $filters.formatVND(okVoucher.discount_price) : '0đ' }}</div>
                             </el-col>
                         </el-row>
-                        <el-row :gutter="24">
+                        <el-row>
                             <el-col :span="12">
                                 <div class="text">Phí vận chuyển:</div>
                             </el-col>
@@ -120,7 +122,7 @@
                                 <div class="value">{{ shipPrice.total ? $filters.formatVND(shipPrice.total) : '' }}</div>
                             </el-col>
                         </el-row>
-                        <el-row :gutter="24">
+                        <el-row>
                             <el-col :span="12">
                                 <div class="text">Thanh toán:</div>
                             </el-col>
@@ -136,16 +138,16 @@
                         <div class="select-payment">
                             <el-radio-group v-model:value="selectPayment">
                                 <el-radio-button value="shipcode">
-                                    <img width="50" height="50" src="../../../assets/images/shipcode.png" alt="">
+                                    <img width="35" height="35" src="../../../assets/images/shipcode.png" alt="">
                                 </el-radio-button>
                                 <el-radio-button value="vnpay">
-                                    <img width="50" height="50" src="../../../assets/images/vnpay.png" alt="">
+                                    <img width="35" height="35" src="../../../assets/images/vnpay.png" alt="">
                                 </el-radio-button>
                                 <el-radio-button value="momo">
-                                    <img width="50" height="50" src="../../../assets/images/momo.jpg" alt="">
+                                    <img width="35" height="35" src="../../../assets/images/momo.jpg" alt="">
                                 </el-radio-button>
                                 <el-radio-button value="paypal">
-                                    <img width="50" height="50" src="../../../assets/images/paypal.jpg" alt="">
+                                    <img width="35" height="35" src="../../../assets/images/paypal.jpg" alt="">
                                 </el-radio-button>
                             </el-radio-group>
                         </div>
@@ -203,7 +205,7 @@ const showModal = () => {
 }
 </script>
 <style lang="scss" scoped>
-.home-checkout {
+::v-deep.home-checkout {
     .info-order {
         font-size: 18px;
         font-weight: 700;
@@ -239,19 +241,46 @@ const showModal = () => {
             padding: 0px 0px 25px 0px;
         }
         .content {
-            border-bottom: 1px solid #e5e5e5;
+            .el-row {
+                border-bottom: 1px solid #e5e5e5;
+                padding: 5px 0px;
+                .text {
+                    font-weight: 600;
+                }
+                .value {
+                    text-align: right;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+    .product {
+        border-bottom: 1px solid #e5e5e5;
+        margin: 0;
+        .title {
+            font-weight: 600;
+            padding: 0px 0px 10px 0px;
+        }
+        .product-content {
+            margin: 0px 0px 10px 10px;
+        }
+        .el-row {
+            .text {
+                color: #7a4f3f;
+            }
             .value {
                 text-align: right;
                 font-weight: 600;
             }
         }
     }
-    .product {
-        .title {
-            font-weight: bold;
-        }
+    .payment-format {
         .text {
-            color: #7a4f3f;
+            padding: 10px 0px;
+            font-weight: 600;
+        }
+        .el-radio-button__inner {
+            padding: 2px;
         }
     }
 }
