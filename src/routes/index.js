@@ -24,6 +24,9 @@ import InfoUser from '../pages/home/User/Info.vue';
 // import error 404 (Không tìm thấy trang)
 import Error404 from "../pages/home/errors/Error404.vue";
 
+// import màn giỏ hàng, thanh toán đơn hàng
+import Cart from "../pages/home/Cart/cart.vue";
+
 
 //admin
 import AdminLayout from "../pages/admin/layouts/AdminLayout.vue";
@@ -193,7 +196,25 @@ const routes = [
         ]
     },
 
-
+    {
+        path: '/cart',
+        component: HomeLayout,
+        meta: {
+            middleware: [auth],
+            title: "Giỏ Hàng"
+        },
+        children: [
+            {
+                title: 'Cart',
+                path: '',
+                name: 'Cart',
+                component: Cart,
+                meta: {
+                    title: 'Giỏ Hàng',
+                }
+            }
+        ]
+    },
 
 
     //admin

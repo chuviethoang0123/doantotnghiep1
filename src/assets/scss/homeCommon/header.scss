@@ -8,8 +8,14 @@
         // height: 40px;
         .content {
             padding: 10px 0px;
+            .el-row {
+                align-items: center;
+            }
             .header-top-right {
                 a {
+                    color: #ffffff;
+                }
+                .el-dropdown-link {
                     color: #ffffff;
                 }
             }

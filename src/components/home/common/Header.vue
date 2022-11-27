@@ -171,8 +171,8 @@
             <div class="total-money">Tổng tiền: {{ $filters.formatVND(carts.sum_price) }}</div>
             <div style="height:1px; background: #c3b3b3; margin:20px 0px" />
             <div class="form-button">
-                <el-button class="btn-cart" size="large" round>XEM GIỎ HÀNG</el-button>
-                <el-button class="btn-checkout" size="large" round>THANH TOÁN</el-button>
+                <el-button class="btn-cart" size="large" round @click="redirectCart('cart')">XEM GIỎ HÀNG</el-button>
+                <el-button class="btn-checkout" size="large" round @click="redirectCart('checkout')">THANH TOÁN</el-button>
             </div>
         </div>
         <div v-else class="cart">
@@ -428,6 +428,16 @@ const redirectInfo = () => {
 
 const cancelOrder = () => {
     visibleOrder.value = false
+}
+
+const redirectCart = (val: string) => {
+    visible.value = false
+    router.push({
+        name: 'Cart',
+        query: {
+            step: val === 'cart' ? 0 : 1
+        }
+    })
 }
 
 </script>
