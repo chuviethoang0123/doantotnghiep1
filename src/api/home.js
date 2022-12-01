@@ -574,6 +574,27 @@ export default {
         });
     },
 
+    shippingOrder: (data) => {
+        const url = `https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee`;
+        let config = {
+            headers: {
+              token: '9dd53078-7773-11ec-b18b-3a9c67615aba',
+              shop_id: 2448165
+            }
+        }
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, config, {
+                withCredentials: true,
+                xsrfCookieName: 'csrftoken_testtest',
+                // xsrfHeaderName: 'X-CSRFToken'
+            }).then((response) => {
+                resolve(response.data.data);
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
+
     checkVoucher: (data) => {
         const url = `${process.env.webthucphamapi}api/check-voucher`;
         return new Promise((resolve, reject) => {
@@ -599,4 +620,28 @@ export default {
             })
         });
     },
+
+    // Thanh toán
+    payment: (data) => {
+        const url = `${process.env.webthucphamapi}api/payment`;
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                xsrfCookieName: 'csrftoken_testtest',
+                // xsrfHeaderName: 'X-CSRFToken'
+            }).then((response) => {
+                if (response.data.status === true) {
+                    resolve(response.data);
+                } else {
+                    resolve(response.data);
+                }
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
+    
 }

@@ -98,9 +98,9 @@
                     active-text-color="#fff"
                     @select="handleSelect"
                 >
-                    <el-menu-item index="1">Bác tôm</el-menu-item>
+                    <el-menu-item index="1">Cvhoang</el-menu-item>
                     <el-sub-menu index="2">
-                        <template #title>Về bác tôm</template>
+                        <template #title>Về Cvhoang</template>
                         <el-menu-item index="2-1">Giới thiệu</el-menu-item>
                         <el-menu-item index="2-2">Đối tác</el-menu-item>
                         <el-menu-item index="2-3">Thành viên</el-menu-item>
@@ -211,10 +211,10 @@
                         class="el-menu-vertical-demo"
                     >
                         <el-menu-item index="1">
-                            <span>BÁC TÔM</span>
+                            <span>CVHOANG</span>
                         </el-menu-item>
                         <el-menu-item index="2">
-                            <span>VỀ BÁC TÔM</span>
+                            <span>VỀ CVHOANG</span>
                         </el-menu-item>
                         <el-menu-item index="3">
                             <span>SẢN PHẨM</span>
