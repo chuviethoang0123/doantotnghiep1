@@ -1,0 +1,52 @@
+.main-category {
+    padding: 10px 50px;
+    .voucher {
+        margin: 20px 0px 0px 0px;
+        .coupon {
+            display: flex;
+            
+            .image {
+                img {
+                    height: 100%;
+                }
+            }
+
+            .content {
+                padding: 5px ;
+                .title {
+                    color: #d82e4d;
+                    font-weight: bold;
+                    font-size: 13px;
+                }
+
+                .describe {
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+
+                .condition {
+                    margin: 10px 0px 0px 0px;
+                    
+                    a {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    .for-you {
+        margin: 50px 0px 50px 0px;
+
+        .see-all {
+            display: flex;
+            .text {
+                margin-right: 10px;
+            }
+
+            .icon {
+                margin-top: 2.5px;
+            }
+        }
+    }
+}

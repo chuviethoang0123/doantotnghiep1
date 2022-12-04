@@ -407,7 +407,7 @@ export default {
 
     .ant-card-head-title {
         text-align: center !important;
-        color: #d82e4d;
+        color: #67C23A;
         font-weight: bold;
         font-size: 20px;
     }
@@ -439,7 +439,7 @@ export default {
 
     .for-you {
         .ant-card-head-title {
-            color: #d82e4d;
+            color: #67C23A;
             font-size: 20px;
             font-weight: 800;
         }

@@ -26,6 +26,10 @@
                     padding: 3px 0px;
                     display: flex;
                     align-items: center;
+                    cursor: pointer;
+                    &:hover {
+                        color: #62AF31;
+                    }
 
                     .cate-name {
                         margin: 0px 0px 0px 10px;

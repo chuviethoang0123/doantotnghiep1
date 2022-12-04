@@ -2,9 +2,8 @@
     <div class="cart-checkout">
         <div class="step-bar">
             <el-steps :space="200" :active="stepActive" simple>
-                <el-step title="Giỏ hàng" :icon="Edit" />
-                <el-step title="Thanh toán" :icon="UploadFilled" />
-                <el-step title="Thành công" :icon="Picture" />
+                <el-step title="Giỏ hàng" :icon="Edit" @click="redirectCart(0)"/>
+                <el-step title="Thanh toán" :icon="UploadFilled" @click="redirectCart(1)"/>
             </el-steps>
         </div>
         <div v-show="stepActive === 0" class="cart">
@@ -19,9 +18,6 @@
         </div>
         <div v-show="stepActive === 1" class="checkout">
             <Checkout />
-        </div>
-        <div v-show="stepActive === 2" class="success-checkout">
-            success
         </div>
     </div>
 </template>
@@ -45,6 +41,14 @@ const stepActive = ref(0);
 watch(() => route.query.step, (val:any) => {
     stepActive.value = val ? Number(val) : 0
 },{immediate:true});
+const redirectCart = (step: number) => {
+    router.push({
+        name: 'Cart',
+        query: {
+            step: step
+        }
+    })
+}
 </script>
 <style lang="scss" scoped>
 .cart-checkout {
@@ -54,6 +58,9 @@ watch(() => route.query.step, (val:any) => {
         .el-steps--simple {
             border-radius: 25px;
         }
+    }
+    .el-step {
+        cursor: pointer;
     }
 }
 </style>

@@ -26,10 +26,9 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 defineProps({
   product: Object
 })
@@ -48,7 +47,7 @@ const addToCart = (id: string) => {
       type: 'success',
     })
   } else {
-    
+    ElMessage.error('Bạn chưa đăng nhập');
   }
 }
 const redirectProduct = (id: String) => {
@@ -104,6 +103,11 @@ const redirectProduct = (id: String) => {
       }
     }
   }
+  .image {
+    width: 100%;
+    height: 200px;
+    display: block;
+  }
 }
 .time {
   font-size: 12px;
@@ -113,11 +117,5 @@ const redirectProduct = (id: String) => {
 .button {
   padding: 0;
   min-height: auto;
-}
-
-.image {
-  width: 100%;
-  height: 200px;
-  display: block;
 }
 </style>

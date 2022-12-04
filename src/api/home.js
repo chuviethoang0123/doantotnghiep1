@@ -643,5 +643,28 @@ export default {
             })
         });
     },
+
+    // tìm kiếm sản phẩm
+    categoryProduct(data) {
+        const url = `${process.env.webthucphamapi}api/category-product`;
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, {}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                xsrfCookieName: 'csrftoken_testtest',
+                // xsrfHeaderName: 'X-CSRFToken'
+            }).then((response) => {
+                if (response.data.status === true) {
+                    resolve(response.data.data);
+                } else {
+                    reject(response);
+                }
+            }).catch((response) => {
+                reject(response);
+            })
+        });
+    },
     
 }

@@ -27,6 +27,9 @@
                                             :label="item.ProvinceName"
                                             :key="item.ProvinceID" />
                                     </el-select>
+                                    <div class="errors">
+                                        <div v-if="listErrors.province">{{ listErrors.province[0] }}</div>
+                                    </div>
                                 </el-col>
                                 <el-col :span="8">
                                     <el-select v-model="huyen" placeholder="Quận/Huyện *">
@@ -38,6 +41,9 @@
                                             :label="item.DistrictName"
                                             :key="item.index" />
                                     </el-select>
+                                    <div class="errors">
+                                        <div v-if="listErrors.district">{{ listErrors.district[0] }}</div>
+                                    </div>
                                 </el-col>
                                 <el-col :span="8">
                                     <el-select v-model="phuong" placeholder="Phường/Xã *">
@@ -49,13 +55,11 @@
                                             :label="item.WardName"
                                             :key="item.index" />
                                     </el-select>
+                                    <div class="errors">
+                                        <div v-if="listErrors.ward">{{ listErrors.ward[0] }}</div>
+                                    </div>
                                 </el-col>
                             </el-row>
-                            <div class="errors">
-                                <div v-if="listErrors.province">{{ listErrors.province[0] }}</div>
-                                <div v-if="listErrors.district">{{ listErrors.district[0] }}</div>
-                                <div v-if="listErrors.ward">{{ listErrors.ward[0] }}</div>
-                            </div>
                         </div>
                     </div>
 
