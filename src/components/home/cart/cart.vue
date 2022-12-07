@@ -41,7 +41,7 @@
                         <span class="sale">{{ $filters.formatVND((item.price - ((item.discount / 100) * item.price)) * item.quantity) }}&emsp;</span>
                     </div>
                     <div v-else>
-                        <span class="money">{{ $filters.formatVND(item.price) }}</span>
+                        <span class="sale">{{ $filters.formatVND(item.price) }}</span>
                     </div>
                 </div>
             </el-col>

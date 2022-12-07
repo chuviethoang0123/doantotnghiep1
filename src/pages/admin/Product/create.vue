@@ -238,6 +238,7 @@ export default {
     },
     methods: {
         createUpdate() {
+            this.formState.discount = this.formState.discount ? this.formState.discount : 0;
             const formData = new FormData();
             for (let i = 0; i < Object.values(this.formState).length; i++) {
                 if (Object.keys(this.formState)[i] == 'image' || Object.keys(this.formState)[i] == 'fileList') {

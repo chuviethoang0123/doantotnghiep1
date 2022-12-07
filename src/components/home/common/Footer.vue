@@ -9,13 +9,13 @@
                     </div>
                     <div class="info">Cung cấp sản phẩm chất lượng từ các thị trường và thương hiệu hàng đầu</div>
                     <div class="address">
-                        &ensp; Địa chỉ: Nguyên Hanh, Văn Tự, Thường Tín, Hà Nội
+                        <el-icon><Location /></el-icon> Địa chỉ: Nguyên Hanh, Văn Tự, Thường Tín, Hà Nội
                     </div>
                     <div class="phone">
-                        &ensp; Số điện thoại: 0386132297
+                        <el-icon><Phone /></el-icon> Số điện thoại: 0386132297
                     </div>
                     <div class="email">
-                        &ensp; Email: dungvm@wru.vn
+                        <el-icon><ChatLineRound /></el-icon> Email: dungvm@wru.vn
                     </div>
                 </el-col>
                 <el-col :xs="12" :sm="12" :md="6">
@@ -61,7 +61,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { Search } from '@element-plus/icons-vue'
+import { Location, Phone, ChatLineRound } from '@element-plus/icons-vue'
 const search = ref('')
 </script>
 
@@ -70,5 +70,11 @@ const search = ref('')
         margin: auto;
         max-width: 1200px;
         padding: 35px;
+        h2 {
+            color: #ffffff;
+        }
+        .logo {
+            margin: 20px 0px;
+        }
     }
 </style>
