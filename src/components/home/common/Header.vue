@@ -110,7 +110,7 @@
                         <template #title>Sản phẩm</template>
                         <el-menu-item v-for="(cate, index) in state.categories" :key="index" @click="redirectCategory(cate.id)">{{ cate.name }}</el-menu-item>
                     </el-sub-menu>
-                    <el-menu-item index="4">Tin tức</el-menu-item>
+                    <el-menu-item index="4" @click="onSearch">Tin tức</el-menu-item>
                     <el-menu-item index="order">Kiểm tra đơn hàng</el-menu-item>
                     <el-menu-item index="6">Hệ thống cửa hàng</el-menu-item>
                 </el-menu>

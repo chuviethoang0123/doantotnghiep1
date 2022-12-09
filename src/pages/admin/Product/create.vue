@@ -61,7 +61,7 @@
                                     }}</span>
                                 </a-form-item>
                                 <div v-if="showImage" class="show-image">
-                                    <img style="width: 100%; height: 100px;" :src="showImage" alt="">
+                                    <img style="width: 150px; height: 100px;" :src="showImage" alt="">
                                 </div>
                             </div>
                             <div class="media">

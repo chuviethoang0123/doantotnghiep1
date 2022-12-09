@@ -317,10 +317,7 @@ const payment = async () => {
                 type: 'success',
             })
             router.push({
-                name: 'Cart',
-                query: {
-                    step: 2
-                }
+                name: 'OrderUser'
             })
         } else {
             if (res.errors) {

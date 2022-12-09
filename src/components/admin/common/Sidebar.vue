@@ -1,12 +1,11 @@
 <template>
   <div class="admin-sidebar" style="width: 256px; height: 100%">
     <a-menu v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys" mode="inline" theme="dark"
-      :inline-collapsed="collapsed">
-      <a-menu-item key="1">
-        <div v-if="!collapsed" class="logo" style="background: #001529;">
+      :inline-collapsed="collapsed" style="background: #060474">
+      <a-menu-item key="1" v-if="!collapsed">
+        <div class="logo">
           <img style="width: 150px; height: 60px" src="@/assets/images/icon-logo.png" alt="">
         </div>
-        <div v-else class="logo" style="background: #001529;">cvhoang</div>
       </a-menu-item>
       <a-menu-item key="Dashboard">
         <template #icon>
@@ -70,6 +69,7 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined, PieChartOutlined, MailOutlined, DesktopOutlined, InboxOutlined, AppstoreOutlined, ShoppingCartOutlined, WalletOutlined, UserOutlined, AlertOutlined, ProfileOutlined, FileImageOutlined, ImportOutlined } from '@ant-design/icons-vue';
 export default {
   name: "Sidebar",
+  inject: ['emitter'],
   components: {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -95,9 +95,9 @@ export default {
     }
   },
   mounted() {
-    // this.$emitter.on("toggle-sidebar", (collapsed) => {
-    //   this.collapsed = collapsed;
-    // });
+    this.emitter.on("toggle-sidebar", (collapsed) => {
+      this.collapsed = collapsed;
+    });
   },
   methods: {
     redirectToRouter(name) {
@@ -127,6 +127,9 @@ export default {
     img {
       padding: 9px;
     }
+  }
+  .ant-menu-item {
+    color: #ffffff !important;
   }
 }
 

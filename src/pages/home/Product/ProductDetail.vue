@@ -320,7 +320,7 @@ export default {
 
         async getProducts() {
             let res = await api.getProduct();
-            this.getProduct = res.product.slice(0, 4);
+            this.getProduct = res.product;
         },
 
         addToCart(id) {
