@@ -17,7 +17,14 @@ export const home = {
     },
     mutations: {
         cartData(state, data) {
-            state.cartData = data
+            if (data) {
+                state.cartData = data
+            } else {
+                state.cartData = {
+                    carts: [],
+                    sum_quantity: 0
+                }
+            }
         },
         categoryProduct(state, data) {
             state.categoryProduct = data
@@ -39,7 +46,9 @@ export const home = {
                     commit('cartData', res);
                     resolve(res)
                 } catch (error) {
-                    console.log("cartData:  ", error);
+                    if (!rootGetters['auth/user'].id) {
+                        commit('cartData');
+                    }
                     reject(error);
                 }
             });
@@ -57,7 +66,6 @@ export const home = {
                     commit('categoryProduct', res);
                     resolve(res)
                 } catch (error) {
-                    console.log("categoryProduct:  ", error);
                     reject(error);
                 }
             });
@@ -73,7 +81,6 @@ export const home = {
                     commit('getCart', res);
                     resolve(res)
                 } catch (error) {
-                    console.log("getCart:  ", error);
                     reject(error);
                 }
             });

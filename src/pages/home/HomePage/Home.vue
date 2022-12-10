@@ -175,7 +175,7 @@ const getData = () => {
     const promise6 = api.getProduct();
     const promise7 = api.getBrand();
 
-    Promise.all([promise1, promise2, promise3, promise4, promise5, promise6, promise7]).then(function(values) {
+    Promise.all([promise1, promise2, promise3, promise4, promise5, promise6, promise7]).then(function(values : any) {
         productsDiscount.value = values[0].productDiscount;
         productsSelling.value = values[1].productSelling;
         vouchers.value = values[2];

@@ -326,8 +326,8 @@ const state = reactive({
 onMounted(async() => {
     window.addEventListener('resize', () => {checkScreen.value = window.innerWidth} );
     await getCategory();
-    await getCart();
     await getMyInfo();
+    await getCart();
 })
 onUnmounted(() => { 
     window.removeEventListener('resize', () => {checkScreen.value = window.innerWidth})
@@ -352,6 +352,8 @@ const carts = computed(() => {
     
     if (shoppingCart) {
         return JSON.parse(JSON.stringify(store.state.home.cartData));
+    } else {
+        return []
     }
 })
 
@@ -389,6 +391,7 @@ async function logout() {
             type: 'success',
         })
         router.push({ name: 'Login' });
+        getCart();
         store.state.auth.user = "";
         store.state.auth.myId = "";
     } else {
