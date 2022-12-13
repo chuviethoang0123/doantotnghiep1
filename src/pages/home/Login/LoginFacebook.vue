@@ -12,7 +12,7 @@ export default {
     methods: {
         login() {
             localStorage.setItem('token', this.$route.query.token);
-            this.$router.push('/');
+            this.$router.push({name: 'Home'});
         }
     }
 }

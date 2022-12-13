@@ -30,7 +30,6 @@ export const auth = {
 
                     resolve(res);
                 } catch (e) {
-                    console.log("getMyInfo:  ", e);
                     reject(e);
                 }
             });

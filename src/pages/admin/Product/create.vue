@@ -61,7 +61,7 @@
                                     }}</span>
                                 </a-form-item>
                                 <div v-if="showImage" class="show-image">
-                                    <img style="width: 100%; height: 100px;" :src="showImage" alt="">
+                                    <img style="width: 150px; height: 100px;" :src="showImage" alt="">
                                 </div>
                             </div>
                             <div class="media">
@@ -238,6 +238,7 @@ export default {
     },
     methods: {
         createUpdate() {
+            this.formState.discount = this.formState.discount ? this.formState.discount : 0;
             const formData = new FormData();
             for (let i = 0; i < Object.values(this.formState).length; i++) {
                 if (Object.keys(this.formState)[i] == 'image' || Object.keys(this.formState)[i] == 'fileList') {

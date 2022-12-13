@@ -52,7 +52,7 @@ export default {
                         fontWeight: "bold",
                         fontSize: "16px",
                         lineHeight: "22px",
-                        color:  '#d82e4d'
+                        color:  '#74d443'
                     },
                 },
                 tooltip: {
@@ -76,7 +76,7 @@ export default {
                 xaxis: {
                     categories: [],
                 },
-                colors: ['#d82e4d'],
+                colors: ['#74d443'],
             },
         }
     },

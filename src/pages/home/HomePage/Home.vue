@@ -8,7 +8,7 @@
                             DANH MỤC
                         </div>
                         <div class="content">
-                            <div class="item" v-for="cate in categories" :key="cate.id">
+                            <div class="item" v-for="cate in categories" :key="cate.id" @click="redirectCategory(cate.id)">
                                 <el-icon><Right /></el-icon>
                                 <div class="cate-name">{{cate.name}}</div>
                             </div>
@@ -16,7 +16,7 @@
                     </div>
                 </el-col>
                 <el-col :xs="24" :sm="16">
-                    <el-carousel :interval="4000" arrow="always">
+                    <el-carousel :interval="4000" arrow="hover">
                         <el-carousel-item v-for="(slide, index) in slides" :key="index">
                             <img style="width:100%; height:400px; border-radius: 20px" :src="slide.image">
                         </el-carousel-item>
@@ -143,15 +143,16 @@
 </template>
 <script lang="ts" setup>
 import Product from '../../../components/common/Product.vue';
-import { inject } from 'vue'
 import api from "../../../api/home";
 import 'element-plus/theme-chalk/display.css'
-import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
-import { useStore } from 'vuex'
-import { useRouter, useRoute } from 'vue-router'
+import { ref, onMounted } from 'vue'
 import { Right } from '@element-plus/icons-vue'
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css'
+
+import { useRouter } from 'vue-router'
+
+const router = useRouter();
 
 const categories = ref([]);
 const slides = ref([]);
@@ -174,7 +175,7 @@ const getData = () => {
     const promise6 = api.getProduct();
     const promise7 = api.getBrand();
 
-    Promise.all([promise1, promise2, promise3, promise4, promise5, promise6, promise7]).then(function(values) {
+    Promise.all([promise1, promise2, promise3, promise4, promise5, promise6, promise7]).then(function(values : any) {
         productsDiscount.value = values[0].productDiscount;
         productsSelling.value = values[1].productSelling;
         vouchers.value = values[2];
@@ -183,6 +184,12 @@ const getData = () => {
         productForYou.value = values[5].product;
         brand.value = values[6]
     });
+}
+const redirectCategory = (id: string) => {
+    router.push({
+        name: 'Category',
+        params: {id}
+    })
 }
 
 </script>

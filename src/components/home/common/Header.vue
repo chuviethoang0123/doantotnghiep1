@@ -39,7 +39,7 @@
             <div class="content">
                 <el-row style="align-items: center">
                     <el-col :span="5">
-                        <img style="width: 214px; height: 106px" src="@/assets/images/cvhoang-logo.png" alt="">
+                        <img style="width: 214px; height: 106px" src="@/assets/images/cvhoang-logo.png" alt="" @click="redirectHome">
                     </el-col>
                     <el-col class="el-content" :span="5">
                         <div class="header-infomation">
@@ -98,9 +98,9 @@
                     active-text-color="#fff"
                     @select="handleSelect"
                 >
-                    <el-menu-item index="1">Bác tôm</el-menu-item>
+                    <el-menu-item index="1" @click="redirectHome">Cvhoang</el-menu-item>
                     <el-sub-menu index="2">
-                        <template #title>Về bác tôm</template>
+                        <template #title>Về Cvhoang</template>
                         <el-menu-item index="2-1">Giới thiệu</el-menu-item>
                         <el-menu-item index="2-2">Đối tác</el-menu-item>
                         <el-menu-item index="2-3">Thành viên</el-menu-item>
@@ -108,14 +108,14 @@
                     </el-sub-menu>
                     <el-sub-menu index="3">
                         <template #title>Sản phẩm</template>
-                        <el-menu-item v-for="(cate, index) in categories" :key="index">{{ cate.name }}</el-menu-item>
+                        <el-menu-item v-for="(cate, index) in state.categories" :key="index" @click="redirectCategory(cate.id)">{{ cate.name }}</el-menu-item>
                     </el-sub-menu>
-                    <el-menu-item index="4">Tin tức</el-menu-item>
+                    <el-menu-item index="4" @click="onSearch">Tin tức</el-menu-item>
                     <el-menu-item index="order">Kiểm tra đơn hàng</el-menu-item>
                     <el-menu-item index="6">Hệ thống cửa hàng</el-menu-item>
                 </el-menu>
                 <div class="search">
-                    <el-input v-model:value="search" :placeholder="'Tìm sản phẩm...'" enter-button :suffix-icon="Search"/>
+                    <el-input v-model="search" :placeholder="'Tìm sản phẩm...'" enter-button @change="onSearch" :suffix-icon="Search"/>
                 </div>
             </div>
         </div>
@@ -171,8 +171,8 @@
             <div class="total-money">Tổng tiền: {{ $filters.formatVND(carts.sum_price) }}</div>
             <div style="height:1px; background: #c3b3b3; margin:20px 0px" />
             <div class="form-button">
-                <el-button class="btn-cart" size="large" round>XEM GIỎ HÀNG</el-button>
-                <el-button class="btn-checkout" size="large" round>THANH TOÁN</el-button>
+                <el-button class="btn-cart" size="large" round @click="redirectCart('cart')">XEM GIỎ HÀNG</el-button>
+                <el-button class="btn-checkout" size="large" round @click="redirectCart('checkout')">THANH TOÁN</el-button>
             </div>
         </div>
         <div v-else class="cart">
@@ -198,7 +198,7 @@
                         default-active="2"
                         class="el-menu-vertical-demo"
                     >
-                        <el-menu-item v-for="(cate, index) in categories" :key="index">
+                        <el-menu-item v-for="(cate, index) in state.categories" :key="index">
                             <span>{{ (cate.name).toUpperCase() }}</span>
                         </el-menu-item>
                     </el-menu>
@@ -211,10 +211,10 @@
                         class="el-menu-vertical-demo"
                     >
                         <el-menu-item index="1">
-                            <span>BÁC TÔM</span>
+                            <span>CVHOANG</span>
                         </el-menu-item>
                         <el-menu-item index="2">
-                            <span>VỀ BÁC TÔM</span>
+                            <span>VỀ CVHOANG</span>
                         </el-menu-item>
                         <el-menu-item index="3">
                             <span>SẢN PHẨM</span>
@@ -292,7 +292,7 @@
     </el-dialog>
 </template>
 <script lang="ts" setup>
-import { inject } from 'vue'
+import { inject, reactive } from 'vue'
 import api from "../../../api/home";
 import 'element-plus/theme-chalk/display.css'
 import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
@@ -313,17 +313,21 @@ const visibleOrder = ref(false);
 const search = ref('');
 const activeIndex = ref('1');
 const activeName = ref('first');
-const categories = ref([]);
+
 const checkScreen = ref(window.innerWidth);
 const current = ref('');
 const infoOrder = ref('');
 const searchOrder = ref('');
 
+const state = reactive({
+    categories: []
+})
+
 onMounted(async() => {
     window.addEventListener('resize', () => {checkScreen.value = window.innerWidth} );
+    await getCategory();
     await getMyInfo();
     await getCart();
-    await getCategory();
 })
 onUnmounted(() => { 
     window.removeEventListener('resize', () => {checkScreen.value = window.innerWidth})
@@ -335,13 +339,7 @@ async function getCart() {
         product_id: '',
         quantity: ''
     }
-    let user = JSON.parse(JSON.stringify(store.state.auth))
-    
-    if (user) {
-        await store.dispatch('home/cartData', params);
-    } else {
-        return
-    }
+    await store.dispatch('home/cartData', params);
 }
 
 const user = computed(() => {
@@ -354,6 +352,8 @@ const carts = computed(() => {
     
     if (shoppingCart) {
         return JSON.parse(JSON.stringify(store.state.home.cartData));
+    } else {
+        return []
     }
 })
 
@@ -362,6 +362,11 @@ watch(() => current.value, (first, second) => {
         visibleOrder.value = true
     }
 });
+
+const getCategory = async () => {
+    let res = await api.getCategory();
+    state.categories = res;
+}
 
 async function getMyInfo() {
     let data = await store.dispatch('auth/getMyInfo');
@@ -386,6 +391,7 @@ async function logout() {
             type: 'success',
         })
         router.push({ name: 'Login' });
+        getCart();
         store.state.auth.user = "";
         store.state.auth.myId = "";
     } else {
@@ -400,10 +406,6 @@ const deleteProduct = (data: String) => {
         product_id: data
     }
     store.dispatch('home/cartData', params);
-}
-const getCategory = async () => {
-    let res = await api.getCategory();
-    categories.value = res;
 }
 
 const handleSelect = (key: string, keyPath: string[]) => {
@@ -430,6 +432,35 @@ const cancelOrder = () => {
     visibleOrder.value = false
 }
 
+const redirectHome = () => {
+    router.push({name: 'Home'})
+}
+
+const redirectCart = (val: string) => {
+    visible.value = false
+    router.push({
+        name: 'Cart',
+        query: {
+            step: val === 'cart' ? 0 : 1
+        }
+    })
+}
+const onSearch = () => {
+    if (search.value) {
+        localStorage.setItem('search', search.value)
+        emitter.emit("search", search.value);
+        router.push({ name: 'Search' });
+    } else {
+        return false;
+    }
+}
+
+const redirectCategory = (id: string) => {
+    router.push({
+        name: 'Category',
+        params: {id}
+    })
+}
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/homeCommon/header.scss';

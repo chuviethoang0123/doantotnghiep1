@@ -37,7 +37,7 @@ export default {
                         fontWeight: "bold",
                         fontSize: "16px",
                         lineHeight: "22px",
-                        color:  '#d82e4d'
+                        color:  '#74d443'
                     },
                 },
                 dataLabels: {
@@ -49,7 +49,7 @@ export default {
                 xaxis: {
                     categories: ['1 sao', '2 sao', '3 sao', '4 sao', '5 sao']
                 },
-                colors: ['#d82e4d'],
+                colors: ['#74d443'],
             },
         }
     },

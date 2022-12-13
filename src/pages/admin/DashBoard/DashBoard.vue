@@ -385,17 +385,17 @@ export default {
                     font-weight:bold;
                     /* font-style: normal; */
                     /* font-weight: bold; */
-                    color: #d82e4d;
+                    color: #74d443;
                     /* width: 120%; */
-                    border-bottom: 1px solid #d82e4d;
+                    border-bottom: 1px solid #74d443;
                 }
                 .header-times_option .span-active {
                     font-weight:bold;
                     /* font-style: normal; */
                     /* font-weight: bold; */
-                    color: #d82e4d;
+                    color: #74d443;
                     /* width: 120%; */
-                    border-bottom: 1px solid #d82e4d;
+                    border-bottom: 1px solid #74d443;
                 }
                 
                 .header-times_option span::before {
@@ -428,7 +428,7 @@ export default {
                     font-style: normal !important;
                     font-weight: normal !important;
                     font-size: 14px !important;
-                    background: #d82e4d !important;
+                    background: #74d443 !important;
                     border-radius: 4px !important;
                 }
             }
@@ -462,9 +462,9 @@ export default {
         font-weight:bold;
         /* font-style: normal; */
         /* font-weight: bold; */
-        color: #d82e4d;
+        color: #74d443;
         /* width: 120%; */
-        border-bottom: 1px solid #d82e4d;
+        border-bottom: 1px solid #74d443;
     }
 }
 </style>

@@ -50,6 +50,7 @@
 <script>
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue';
 export default {
+    inject: ['emitter'],
     components: { MenuFoldOutlined, MenuUnfoldOutlined },
     props: {
         title: {
@@ -190,7 +191,7 @@ export default {
         },
         toggleCollapsed() {
             this.collapsed = !this.collapsed;
-            this.$emitter.emit("toggle-sidebar", this.collapsed);
+            this.emitter.emit("toggle-sidebar", this.collapsed);
         }
     }
 };

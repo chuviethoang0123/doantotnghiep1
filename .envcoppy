@@ -1,4 +1,4 @@
-HOMEPAGE = https://webthucpham-dev.vn:2222/
+HOMEPAGE = http://webthucpham-dev.vn:2222/
 WEBTHUCPHAMAPI = http://webthucpham.vn/
 
 PORT = 9000

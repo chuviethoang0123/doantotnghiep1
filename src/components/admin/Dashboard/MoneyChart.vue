@@ -37,7 +37,7 @@ export default {
                     fontWeight: "bold",
                     fontSize: "16px",
                     lineHeight: "22px",
-                    color:  '#d82e4d'
+                    color:  '#74d443'
                 },
             },
             plotOptions: {
@@ -65,7 +65,7 @@ export default {
               categories: [],
               tickPlacement: 'on'
             },
-            colors: ['#d82e4d'],
+            colors: ['#74d443'],
           },
         }
     },
