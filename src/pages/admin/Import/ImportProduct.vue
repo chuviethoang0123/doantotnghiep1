@@ -12,7 +12,7 @@
             <a-row :gutter="30">
                 <a-col :span="12">
                     <div class="input-search">
-                        <h3>Tìm kiếm sản phẩm cần nhập</h3>
+                        <h3>Tìm kiếm sản phẩm cần nhập kho</h3>
                         <a-input-search v-model:value="search" placeholder="Tìm kiếm sản phẩm" size="large"
                             @search="onSearch">
                             <template #enterButton>
@@ -41,7 +41,7 @@
                     </div>
                 </a-col>
                 <a-col :span="12">
-                    <h3>Danh sách sản phẩm cần nhập</h3>
+                    <h3>Danh sách sản phẩm cần nhập kho</h3>
                     <div class="warehouse-product" v-if="dataProduct.length">
                         <a-table :columns="columns" :data-source="dataProduct" bordered :pagination="false"
                             :scroll="{ y: 500 }">
@@ -53,6 +53,9 @@
                             </template>
                             <template #quantity="{ record }">
                                 <a-input-number :min="1" :max="10000" v-model:value="record.quantity" />
+                            </template>
+                            <template #inventory="{ record }">
+                                {{ record.inventory }}
                             </template>
                             <template #delete="{ record }">
                                 <DeleteOutlined @click="remove(record.id)" />
@@ -70,7 +73,7 @@ const columns = [
         title: 'Ảnh',
         dataIndex: 'image',
         slots: { customRender: 'image' },
-        width: '40%'
+        width: '35%'
     },
     {
         title: 'Tên sản phẩm',
@@ -82,6 +85,12 @@ const columns = [
         dataIndex: 'quantity',
         slots: { customRender: 'quantity' },
         width: 150
+    },
+    {
+        title: 'Tồn kho',
+        dataIndex: 'inventory',
+        slots: { customRender: 'inventory' },
+        width: 90
     },
     {
         title: '',
@@ -115,6 +124,7 @@ export default {
                         id: products[i].id,
                         image: products[i].image,
                         name: products[i].name,
+                        inventory: products[i].inventory,
                         quantity: 1,
                         key: i
                     }
@@ -141,6 +151,7 @@ export default {
                     id: value.id,
                     image: value.image,
                     name: value.name,
+                    inventory: value.inventory,
                     quantity: 1
                 }
                 this.dataProduct.push(params);
@@ -175,7 +186,7 @@ export default {
 </script>
 <style lang="scss">
 .content-import {
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 0 auto;
     padding: 50px 30px 0px 30px;
 
