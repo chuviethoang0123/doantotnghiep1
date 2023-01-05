@@ -10,6 +10,12 @@
                             </template>
                             Thêm mới Sản phẩm
                         </a-button>
+                        <a-button :disabled="selectedRowKeys.length === 0" type="primary" size="large" @click="importWarehouse">
+                            <template #icon>
+                                <import-outlined />
+                            </template>
+                            Nhập kho
+                        </a-button>
                     </a-space>
                 </template>
             </Breadcrums>
@@ -35,7 +41,7 @@
                 </a-space>
             </div>
             <div class="product-table">
-                <a-table :columns="columns" :data-source="listProduct.data" bordered :pagination="false">
+                <a-table :columns="columns" :data-source="listProduct.data" bordered :pagination="false" :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }">
                     <template #stt="{ record }">
                         {{ record.index }}
                     </template>
@@ -53,6 +59,9 @@
                     </template>
                     <template #selling="{ record }">
                         {{ record.selling }}
+                    </template>
+                    <template #inventory="{ record }">
+                        {{ record.inventory }}
                     </template>
                     <template #edit="{ record }">
                         <FormOutlined @click="update(record)" />
@@ -103,6 +112,11 @@ const columns = [
         slots: { customRender: 'selling' },
     },
     {
+        title: 'Tồn kho',
+        dataIndex: 'inventory',
+        slots: { customRender: 'inventory' },
+    },
+    {
         title: '',
         dataIndex: 'edit',
         slots: { customRender: 'edit' },
@@ -113,7 +127,7 @@ const columns = [
         slots: { customRender: 'delete' },
     }
 ]
-import { DeleteOutlined, FormOutlined, ExclamationCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
+import { DeleteOutlined, FormOutlined, ExclamationCircleOutlined, PlusOutlined, ImportOutlined } from '@ant-design/icons-vue';
 import Pagination from '../../../components/admin/common/Pagination.vue';
 import api from '../../../api/admin';
 import apiwebview from '../../../api/home';
@@ -122,7 +136,7 @@ import { Modal } from 'ant-design-vue';
 import moment from 'moment';
 export default {
     name: 'ListProduct',
-    components: { Pagination, DeleteOutlined, FormOutlined, ExclamationCircleOutlined, PlusOutlined },
+    components: { Pagination, DeleteOutlined, FormOutlined, ExclamationCircleOutlined, PlusOutlined, ImportOutlined },
     data() {
         return {
             columns,
@@ -135,6 +149,9 @@ export default {
             },
             brand: {},
             category: {},
+            openWarehouse: false,
+            selectedRowKeys: [],
+            selectListWarehouse: [],
         }
     },
     created() {
@@ -153,7 +170,7 @@ export default {
             let res = await api.listProduct(params);
             this.listProduct = res;
             this.listProduct.data = res.data.map((product, index) => {
-                const { id, name, image, price, discount, selling } = product;
+                const { id, name, image, price, discount, selling, inventory } = product;
                 return {
                     index: index + 1,
                     key: id,
@@ -162,7 +179,8 @@ export default {
                     image: image,
                     price: price,
                     discount: discount,
-                    selling: selling
+                    selling: selling,
+                    inventory: inventory
                 }
             })
         },
@@ -206,7 +224,19 @@ export default {
         addProduct() {
             this.$router.push({ name: 'ProductCreate' })
         },
-
+        onSelectChange(selectedRowKeys, selectedRows) {
+            this.selectedRowKeys = selectedRowKeys;
+            this.selectListWarehouse = selectedRows;
+        },
+        importWarehouse() {
+            let query = JSON.stringify(this.selectListWarehouse)
+            this.$router.push({
+                name: 'ImportProduct',
+                query: {
+                    product: query
+                }
+            })
+        },
         searchProduct() {
             this.getProduct();
         },

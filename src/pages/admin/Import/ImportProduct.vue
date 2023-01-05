@@ -25,7 +25,7 @@
                             <template #renderItem="{ item }">
                                 <a-list-item>
                                     <template #actions>
-                                        <a @click="selectProduct(item)">chọn</a>
+                                        <a @click="selectProduct(item)">Chọn</a>
                                     </template>
                                     <a-list-item-meta>
                                         <template #title>
@@ -52,7 +52,7 @@
                                 {{ record.name }}
                             </template>
                             <template #quantity="{ record }">
-                                <a-input-number v-model:value="record.quantity" />
+                                <a-input-number :min="1" :max="10000" v-model:value="record.quantity" />
                             </template>
                             <template #delete="{ record }">
                                 <DeleteOutlined @click="remove(record.id)" />
@@ -91,6 +91,7 @@ const columns = [
     }
 ];
 import { DeleteOutlined } from '@ant-design/icons-vue';
+import { ElMessage } from 'element-plus'
 import apiAdmin from '../../../api/admin';
 export default {
     name: 'ImportProduct',
@@ -105,6 +106,23 @@ export default {
             visiable: false,
         }
     },
+    mounted() {
+        if (this.$route.query.product) {
+            let products = JSON.parse(this.$route.query.product)
+            if (products.length) {
+                for (let i = 0; i < products.length; i ++) {
+                    let params = {
+                        id: products[i].id,
+                        image: products[i].image,
+                        name: products[i].name,
+                        quantity: 1,
+                        key: i
+                    }
+                    this.dataProduct.push(params);
+                }
+            }
+        }
+    },
     methods: {
         async onSearch() {
             let params = {
@@ -117,17 +135,26 @@ export default {
             }
         },
         selectProduct(value) {
-            let params = {
-                id: value.id,
-                image: value.image,
-                name: value.name,
-                quantity: 0
+            let product = this.dataProduct.find(item => item.id === value.id)
+            if (!product) {
+                let params = {
+                    id: value.id,
+                    image: value.image,
+                    name: value.name,
+                    quantity: 1
+                }
+                this.dataProduct.push(params);
+                this.visiable = false;
+            } else {
+                ElMessage.error('Sản phẩm đã tồn tại');
             }
-            this.dataProduct.push(params);
-            this.visiable = false;
-
         },
         async importWarehouse() {
+            let findQuantityProduct = this.dataProduct.find(el => el.quantity === 0);
+            if (findQuantityProduct) {
+                this.$message.error('Sản phẩm nhập kho không được bằng 0');
+                return
+            }
             await apiAdmin.importWarehouse(this.dataProduct).then((res) => {
                 if (res.data.status === true) {
                     this.$message.success('Nhập kho thành công');
